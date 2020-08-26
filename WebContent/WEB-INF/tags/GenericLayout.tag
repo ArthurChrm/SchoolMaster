@@ -43,22 +43,22 @@
 					href="/SchoolMaster">Accueil <span class="sr-only">(current)</span>
 				</a></li>
 
-<li class="nav-item"><a class="nav-link" href="#">Classes</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="/SchoolMaster/classes">Classes</a></li>
 
-<li class="nav-item"><a class="nav-link" href="#">Elèves</a></li>
-
-<li class="nav-item"><a class="nav-link" href="#">Présences</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Elèves</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Présences</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Notes</a></li>
 
 				<li class="nav-item"><a class="nav-link" href="#" tabindex="-1"
 					aria-disabled="true">Matériel</a></li>
-					
-					<li class="nav-item"><a class="nav-link" href="#">Notes</a></li>
+
+				<li class="nav-item"><a class="nav-link" href="#">Notes</a></li>
 			</ul>
 			<%@ include file="../Partial_Login.jsp"%>
 		</div>
 	</nav>
-	
+
 	<div class="container">
 		<jsp:invoke fragment="body" />
 	</div>
