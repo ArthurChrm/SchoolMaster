@@ -12,7 +12,7 @@ public class MaterielBean implements Serializable{
 	private static final long serialVersionUID = 782696113973805318L;
 	
 	/* SELECT */
-	public List<Materiel> getMateriels() throws SQLException, ClassNotFoundException{
+	public List<Materiel> getAll() throws SQLException, ClassNotFoundException{
 		
 		List<Materiel> materiels = new ArrayList<Materiel>();
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM materiel");
@@ -32,7 +32,7 @@ public class MaterielBean implements Serializable{
 		return materiels;
 	}
 	
-	public Materiel getMateriel(int id) throws SQLException, ClassNotFoundException {
+	public Materiel get(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM materiel WHERE id_materiel = ?");
 		ps.setInt(1, id);
 		
@@ -50,7 +50,7 @@ public class MaterielBean implements Serializable{
 	}
 	
 	/* INSERT */
-	public void insertMateriel(Materiel m) throws ClassNotFoundException, SQLException {
+	public void insert(Materiel m) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO materiel VALUES (?,?)");
 		ps.setInt(1, m.getId());
 		ps.setString(2, m.getNom());
@@ -60,7 +60,7 @@ public class MaterielBean implements Serializable{
 	}
 	
 	/* DELETE */
-	public void deleteMateriel(Materiel m) throws ClassNotFoundException, SQLException {
+	public void delete(Materiel m) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("DELETE FROM materiel WHERE id_materiel = ?");
 		ps.setInt(1,m.getId());
 		
@@ -69,7 +69,7 @@ public class MaterielBean implements Serializable{
 	}
 	
 	/* UPDATE */
-	public void updateMateriel(Materiel m) throws SQLException, ClassNotFoundException {
+	public void update(Materiel m) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("UPDATE materiel SET nom_materiel = ? WHERE id_materiel = ?");
 		ps.setString(1,m.getNom());
 		ps.setInt(2,m.getId());

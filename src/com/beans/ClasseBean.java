@@ -12,7 +12,7 @@ public class ClasseBean implements Serializable{
 	private static final long serialVersionUID = 6717010781513088826L;
 	
 	/* SELECT */
-	public List<Classe> getClasses() throws SQLException, ClassNotFoundException{
+	public List<Classe> getAll() throws SQLException, ClassNotFoundException{
 		
 		List<Classe> classes = new ArrayList<Classe>();
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM classes");
@@ -32,7 +32,7 @@ public class ClasseBean implements Serializable{
 		return classes;
 	}
 	
-	public Classe getClasse(int id) throws SQLException, ClassNotFoundException {
+	public Classe get(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM classes WHERE id_classe = ?");
 		ps.setInt(1, id);
 		
@@ -50,7 +50,7 @@ public class ClasseBean implements Serializable{
 	}
 	
 	/* INSERT */
-	public void insertClasse(Classe c) throws ClassNotFoundException, SQLException {
+	public void insert(Classe c) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO classes VALUES (?,?)");
 		ps.setInt(1, c.getId());
 		ps.setString(2, c.getNiveau());
@@ -60,7 +60,7 @@ public class ClasseBean implements Serializable{
 	}
 	
 	/* DELETE */
-	public void deleteClasse(Classe c) throws ClassNotFoundException, SQLException {
+	public void delete(Classe c) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("DELETE FROM classes WHERE id_classe = ?");
 		ps.setInt(1,c.getId());
 		
@@ -69,7 +69,7 @@ public class ClasseBean implements Serializable{
 	}
 	
 	/* UPDATE */
-	public void updateClasse(Classe c) throws SQLException, ClassNotFoundException {
+	public void update(Classe c) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("UPDATE classes SET niveau_classe = ? WHERE id_classe = ?");
 		ps.setString(1,c.getNiveau());
 		ps.setInt(2,c.getId());

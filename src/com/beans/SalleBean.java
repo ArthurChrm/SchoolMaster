@@ -12,7 +12,7 @@ public class SalleBean implements Serializable{
 	private static final long serialVersionUID = -4735676664051694737L;
 	
 	/* SELECT */
-	public List<Salle> getSalles() throws SQLException, ClassNotFoundException{
+	public List<Salle> getAll() throws SQLException, ClassNotFoundException{
 		
 		List<Salle> salles = new ArrayList<Salle>();
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM salles");
@@ -32,7 +32,7 @@ public class SalleBean implements Serializable{
 		return salles;
 	}
 	
-	public Salle getSalle(int id) throws SQLException, ClassNotFoundException {
+	public Salle get(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM salles WHERE id_salle = ?");
 		ps.setInt(1, id);
 		
@@ -50,7 +50,7 @@ public class SalleBean implements Serializable{
 	}
 	
 	/* INSERT */
-	public void insertSalle(Salle s) throws ClassNotFoundException, SQLException {
+	public void insert(Salle s) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO salles VALUES (?,?)");
 		ps.setInt(1, s.getId());
 		ps.setString(2, s.getNom());
@@ -60,7 +60,7 @@ public class SalleBean implements Serializable{
 	}
 	
 	/* DELETE */
-	public void deleteSalle(Salle s) throws ClassNotFoundException, SQLException {
+	public void delete(Salle s) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("DELETE FROM salles WHERE id_salle = ?");
 		ps.setInt(1,s.getId());
 		
@@ -69,7 +69,7 @@ public class SalleBean implements Serializable{
 	}
 	
 	/* UPDATE */
-	public void updateSalle(Salle s) throws SQLException, ClassNotFoundException {
+	public void update(Salle s) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("UPDATE salles SET nom_salle = ? WHERE id_salle = ?");
 		ps.setString(1,s.getNom());
 		ps.setInt(2,s.getId());
