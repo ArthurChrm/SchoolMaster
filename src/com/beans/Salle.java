@@ -4,6 +4,10 @@ public class Salle {
 	private int id;
 	private String nom;
 	
+	public Salle() {
+		
+	}
+	
 	public Salle(int id, String nom) {
 		super();
 		this.id = id;
