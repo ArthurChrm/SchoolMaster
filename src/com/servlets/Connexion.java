@@ -16,7 +16,7 @@ import com.beans.PersonneBean;
 
 public class Connexion extends HttpServlet {
 	
-	private static String HOME = "/notes";
+	private static String HOME = "/home";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
