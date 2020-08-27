@@ -18,6 +18,12 @@ public class Connexion extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Check if logout is asked
+		String logout = req.getParameter("logout");
+		if(logout != null) {
+			req.getSession().invalidate();
+		}
+		
 		req.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(req, resp);
 	}
 
