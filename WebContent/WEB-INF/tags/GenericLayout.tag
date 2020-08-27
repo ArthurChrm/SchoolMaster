@@ -7,6 +7,7 @@
 <html>
 
 <head>
+	<link rel="icon" href="src/classroom.svg" sizes="any" type="image/svg+xml">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
 		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -52,6 +53,12 @@
 	<div class="container mt-5">
 		<jsp:invoke fragment="body" />
 	</div>
+
+<footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">© SchoolMaster - Les Esperluettes 2020</span>
+  </div>
+</footer>
 
 </body>
 

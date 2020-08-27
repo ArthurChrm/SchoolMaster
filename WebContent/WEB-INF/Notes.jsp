@@ -23,7 +23,7 @@
 					<div class="tab-pane fade show active" id="list-alexis-poupelin" role="tabpanel"
 						aria-labelledby="list-home-list">
 						<table class="table table-hover">
-							<thead class="thead-dark">
+							<thead class="thead-light">
 								<tr>
 									<th scope="col">#</th>
 									<th scope="col">Matière</th>
@@ -52,7 +52,7 @@
 						<div class="tab-pane fade show active" id="list-alexis-poupelin" role="tabpanel"
 							aria-labelledby="list-home-list">
 							<table class="table table-hover">
-								<thead class="thead-dark">
+								<thead class="thead-light">
 									<tr>
 										<th scope="col">#</th>
 										<th scope="col">Matière</th>
@@ -82,7 +82,7 @@
 			</div>
 		</div>
 		
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+		<button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal"
       id="ajouterClasse">Ajouter une note</button>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

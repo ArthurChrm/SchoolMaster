@@ -7,7 +7,7 @@
 
   <jsp:attribute name="body">
   
-    <div class="jumbotron">
+    <div class="jumbotron shadow">
       <h1 class="display-4">Une nouvelle façon de gérer votre école</h1>
       <p class="lead">Profitez d'une solution profitant des nouvelles technologies pour améliorer la gestion de votre
         établissement.</p>

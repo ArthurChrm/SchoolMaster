@@ -10,7 +10,7 @@
     <h1 class=pb-3>Liste des élèves</h1>
   
     <table class="table table-hover">
-      <thead>
+      <thead class="thead-light">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Prenom / Nom</th>
