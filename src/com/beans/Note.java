@@ -3,16 +3,18 @@ package com.beans;
 public class Note {
 	private int id;
 	private float valeur;
+	private String description;
 	private Personne personne;
 	
 	public Note() {
 		
 	}
 
-	public Note(int id, float valeur, Personne personne) {
+	public Note(int id, float valeur, String description, Personne personne) {
 		super();
 		this.id = id;
 		this.valeur = valeur;
+		this.description = description;
 		this.personne = personne;
 	}
 
@@ -39,6 +41,16 @@ public class Note {
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	
 	
 	
 }

@@ -22,6 +22,7 @@ public class NoteBean implements Serializable{
 			Note n = new Note();
 			n.setId(rs.getInt("id_note"));
 			n.setValeur(rs.getFloat("valeur_note"));
+			n.setDescription(rs.getString("description_note"));
 			n.setPersonne(new PersonneBean().get(rs.getInt("id_personne")));
 			
 			notes.add(n);
@@ -42,6 +43,7 @@ public class NoteBean implements Serializable{
 		while(rs.next()) {
 			n.setId(rs.getInt("id_note"));
 			n.setValeur(rs.getFloat("valeur_note"));
+			n.setDescription(rs.getString("description_note"));
 			n.setPersonne(new PersonneBean().get(rs.getInt("id_personne")));
 		}
 		
@@ -53,9 +55,10 @@ public class NoteBean implements Serializable{
 	
 	/* INSERT */
 	public void insert(Note n) throws ClassNotFoundException, SQLException {
-		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO notes VALUES (?,?,?)");
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO notes VALUES (?,?,?,?)");
 		ps.setInt(1, n.getId());
 		ps.setFloat(2, n.getValeur());
+		ps.setString(3, n.getDescription());
 		ps.setInt(4, n.getPersonne().getId());
 		
 		ps.executeUpdate();
@@ -75,12 +78,14 @@ public class NoteBean implements Serializable{
 	public void update(Note n) throws SQLException, ClassNotFoundException {
 		String query = "UPDATE notes SET "
 				+ "valeur_note = ? "
+				+ "description_note = ?"
 				+ "id_personne = ?"
 				+ "WHERE id_note = ?";
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement(query);
-		ps.setFloat(1,n.getValeur());
-		ps.setInt(2,n.getPersonne().getId());
-		ps.setInt(3,n.getId());
+		ps.setInt(1, n.getId());
+		ps.setFloat(2, n.getValeur());
+		ps.setString(3, n.getDescription());
+		ps.setInt(4, n.getPersonne().getId());
 		
 		ps.executeUpdate();
 		ps.close();
