@@ -39,4 +39,22 @@
 		<servlet-name>Classes</servlet-name>
 		<url-pattern>/classes</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Eleves</servlet-name>
+		<servlet-class>com.servlets.Eleves</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Eleves</servlet-name>
+		<url-pattern>/eleves</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Notes</servlet-name>
+		<servlet-class>com.servlets.Notes</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Notes</servlet-name>
+		<url-pattern>/notes</url-pattern>
+	</servlet-mapping>
 </web-app>

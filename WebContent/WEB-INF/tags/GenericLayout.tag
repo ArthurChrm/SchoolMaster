@@ -46,9 +46,9 @@
 				<li class="nav-item"><a class="nav-link"
 					href="/SchoolMaster/classes">Classes</a></li>
 
-				<li class="nav-item"><a class="nav-link" href="#">Elèves</a></li>
+				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/eleves">Elèves</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Présences</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Notes</a></li>
+				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/notes">Notes</a></li>
 
 				<li class="nav-item"><a class="nav-link" href="#" tabindex="-1"
 					aria-disabled="true">Matériel</a></li>
