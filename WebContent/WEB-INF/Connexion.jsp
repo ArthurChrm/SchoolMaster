@@ -9,14 +9,14 @@
   
     <h1 class=pb-3>Connexion</h1>
   
-    <form>
+    <form action="connexion" method="POST">
       <div class="form-group">
-        <label for="exampleInputEmail1">Adresse mail</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <label for="login">Login</label>
+        <input name="login" type="text" class="form-control" id="login">
       </div>
       <div class="form-group">
         <label for="exampleInputPassword1">Mot de passe</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <input name="password" type="password" class="form-control" id="exampleInputPassword1">
       </div>
       <button type="submit" class="btn btn-primary">Se connecter</button>
     </form>

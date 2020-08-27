@@ -70,6 +70,26 @@ public class PersonneBean implements Serializable{
 		return p;
 	}
 	
+	public Personne get(String login) throws SQLException, ClassNotFoundException {
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM personnes WHERE login_personne = ?");
+		ps.setString(1, login);
+		
+		ResultSet rs = ps.executeQuery();
+		Personne p = new Personne();
+		while(rs.next()) {
+			p.setId(rs.getInt("id_personne"));
+			p.setNom(rs.getString("nom_personne"));
+			p.setPrenom(rs.getString("prenom_personne"));
+			p.setHash(rs.getString("hash_personne"));
+			p.setRole(new RoleBean().get(rs.getInt("id_role")));
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return p;
+	}
+	
 	/* INSERT */
 	public void insert(Personne p) throws ClassNotFoundException, SQLException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO personnes VALUES (?,?,?,?,?,?)");
