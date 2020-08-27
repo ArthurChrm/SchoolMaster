@@ -33,6 +33,8 @@ CREATE TABLE PERSONNES(
         id_personne     Int  Auto_increment  NOT NULL ,
         nom_personne    Varchar (50) NOT NULL ,
         prenom_personne Varchar (50) NOT NULL ,
+        login_personne  Varchar (50) NOT NULL ,
+        hash_personne   Varchar (100) NOT NULL ,
         id_role         Int NOT NULL
 	,CONSTRAINT PERSONNES_PK PRIMARY KEY (id_personne)
 

@@ -5,17 +5,21 @@ public class Personne {
 	private String nom;
 	private String prenom;
 	private Role role;
+	private String login;
+	private String hash;
 	
 	public Personne() {
 		
 	}
 
-	public Personne(int id, String nom, String prenom, Role role) {
+	public Personne(int id, String nom, String prenom, Role role, String hash) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.role = role;
+		this.hash = hash;
+		this.login = this.getLogin();
 	}
 
 	public int getId() {
@@ -49,6 +53,20 @@ public class Personne {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	public String getHash() {
+		return hash;
+	}
+
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	public String getLogin() {
+		return this.nom.toLowerCase()+"."+this.prenom.toLowerCase();
+	}
+	
+	
 	
 	
 }

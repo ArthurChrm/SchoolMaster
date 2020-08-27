@@ -1,5 +1,7 @@
 package com.beans;
 
+import com.auth.Roles;
+
 public class Role {
 	private int id;
 	private String nom;
@@ -30,5 +32,8 @@ public class Role {
 		this.nom = nom;
 	}
 	
+	public Roles getEnum() {
+		return Roles.values()[this.id-1];
+	}
 	
 }
