@@ -15,6 +15,8 @@ import com.beans.Personne;
 import com.beans.PersonneBean;
 
 public class Connexion extends HttpServlet {
+	
+	private static String HOME = "/notes";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +26,12 @@ public class Connexion extends HttpServlet {
 			req.getSession().invalidate();
 		}
 		
-		req.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(req, resp);
+		if(req.getSession().getAttribute("user") != null) {
+			resp.sendRedirect(req.getContextPath()+HOME);
+		}else {
+			req.getRequestDispatcher("/WEB-INF/Connexion.jsp").forward(req, resp);
+		}
+		
 	}
 
 	@Override
@@ -53,7 +60,7 @@ public class Connexion extends HttpServlet {
 					if(Password.check(password, user.getHash())) {
 						//Password correct, auth user in session
 						req.getSession().setAttribute("user", user);
-						resp.sendRedirect(req.getContextPath()+ "/notes");
+						resp.sendRedirect(req.getContextPath()+HOME);
 						return;
 					}else {
 						feedback.put("login","Cette combinaison mot de passe login ne correspond à aucun compte, merci de réessayer");
