@@ -66,4 +66,14 @@
 		<servlet-name>Presences</servlet-name>
 		<url-pattern>/presences</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Cours</servlet-name>
+		<servlet-class>com.servlets.Cours</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Cours</servlet-name>
+		<url-pattern>/cours</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

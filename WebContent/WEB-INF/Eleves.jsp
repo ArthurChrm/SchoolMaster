@@ -1,11 +1,11 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:GenericLayout>
-  <jsp:attribute name="title">
+	<jsp:attribute name="title">
     Elï¿½ves
   </jsp:attribute>
 
-  <jsp:attribute name="body">
+	<jsp:attribute name="body">
   
     <h1 class=pb-3>Liste des élèves</h1>
   
@@ -40,15 +40,17 @@
       </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-      id="ajouterClasse">Ajouter un élève</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#exampleModal" id="ajouterClasse">Ajouter un élève</button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ajout d'un élève</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -58,29 +60,37 @@
               <div class="form-group">
                 <label for="nomEleve">Nom</label>
                 <input type="text" class="form-control" id="nomEleve">
+                </div>
 
+<div class="form-group">
                 <label for="prenomEleve">Prenom</label>
                 <input type="text" class="form-control" id="prenomEleve">
+                </div>
 
+<div class="form-group">
                 <label for="naissanceEleve">Date de naissance</label>
-                <input type="date" class="form-control" id="naissanceEleve">
+                <input type="date" class="form-control"
+									id="naissanceEleve">
+                </div>
 
+<div class="form-group">
                 <label for="classeEleve">Classe de l'élève</label>
-                <select id="classeEleve" name="classe" class="custom-select">
+                <select id="classeEleve" name="classe"
+									class="custom-select">
                   <option value="volvo">CP</option>
                   <option value="saab">CE1</option>
                   <option value="fiat">CE2</option>
                   <option value="audi">CM1</option>
                   <option value="audi">CM2</option>
                 </select>
-
-              </div>
+                </div>
               <!-- <button type="submit" class="btn btn-primary">Créer</button> -->
             </form>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Annuler</button>
             <button type="button" class="btn btn-primary">Ajouter</button>
 
           </div>
