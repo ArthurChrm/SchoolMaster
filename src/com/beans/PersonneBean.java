@@ -34,6 +34,21 @@ public class PersonneBean implements Serializable{
 		return personnes;
 	}
 	
+	public List<Cours> getCours(Personne p) throws ClassNotFoundException, SQLException{
+		List<Cours> cours = new ArrayList<Cours>();
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM presences WHERE id_personne = ?");
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			cours.add(new CoursBean().get(rs.getInt("id_cours")));
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return cours;
+	}
+	
 	public Personne get(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM personnes WHERE id_personne = ?");
 		ps.setInt(1, id);

@@ -32,6 +32,27 @@ public class CoursMaterielBean implements Serializable{
 		return coursMateriel;
 	}
 	
+public List<CoursMateriel> getAll(Cours c) throws SQLException, ClassNotFoundException{
+		
+		List<CoursMateriel> coursMateriel = new ArrayList<CoursMateriel>();
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM cours_materiel WHERE id_cours = ?");
+		ps.setInt(1, c.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			CoursMateriel cm = new CoursMateriel();
+			cm.setMateriel(new MaterielBean().get(rs.getInt("id_materiel")));
+			cm.setCours(new CoursBean().get(rs.getInt("id_cours")));
+			
+			coursMateriel.add(cm);
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return coursMateriel;
+	}
+	
 	public CoursMateriel get(Materiel m,Cours c) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM cours_materiel WHERE id_materiel = ? AND id_cours = ?");
 		ps.setInt(1, m.getId());
@@ -49,6 +70,8 @@ public class CoursMaterielBean implements Serializable{
 		
 		return cm;
 	}
+	
+	
 	
 	/* INSERT */
 	public void insert(CoursMateriel cm) throws ClassNotFoundException, SQLException {
