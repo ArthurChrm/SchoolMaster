@@ -11,6 +11,9 @@ public class Presences extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Redirect if not logged
+		if(req.getSession().getAttribute("user") == null) {resp.sendRedirect(req.getContextPath()+"/home"); return;}
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/Presences.jsp").forward(req, resp);
 	}
 
