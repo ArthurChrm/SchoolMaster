@@ -57,4 +57,13 @@
 		<servlet-name>Notes</servlet-name>
 		<url-pattern>/notes</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Presences</servlet-name>
+		<servlet-class>com.servlets.Presences</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Presences</servlet-name>
+		<url-pattern>/presences</url-pattern>
+	</servlet-mapping>
 </web-app>

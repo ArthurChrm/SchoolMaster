@@ -83,6 +83,8 @@
         </div>
       </div>
     </div>
+    
+    <p class="mt-3"><i>L'ajout d'un élève à une classe se fait dans la section "Elèves" de ce site web.</i></p>
 
   </jsp:attribute>
 </t:GenericLayout>

@@ -39,12 +39,11 @@
 				<li class="nav-item"><a class="nav-link" href="/SchoolMaster">Accueil</a></li>
 
 				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/classes">Classes</a></li>
-
+				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/cours">Cours</a></li>
 				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/eleves">Elèves</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Présences</a></li>
+				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/presences">Présences</a></li>
 				<li class="nav-item"><a class="nav-link" href="/SchoolMaster/notes">Notes</a></li>
-
-				<li class="nav-item"><a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Matériel</a></li>
+				<li class="nav-item"><a class="nav-link disabled" href="#">Matériel</a></li>
 			</ul>
 			<%@ include file="../Partial_Login.jsp"%>
 		</div>
