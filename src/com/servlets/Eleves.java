@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.auth.Password;
 import com.auth.Roles;
 import com.beans.Classe;
 import com.beans.ClasseBean;
 import com.beans.CoursBean;
 import com.beans.Personne;
 import com.beans.PersonneBean;
+import com.beans.RoleBean;
 
 public class Eleves extends HttpServlet {
 
@@ -107,15 +109,21 @@ public class Eleves extends HttpServlet {
 			String nom = req.getParameter("nom");
 			int idClasse = Integer.parseInt(req.getParameter("idClasse"));
 			
+			ClasseBean classesBean = new ClasseBean();
+			Classe classe = classesBean.get(idClasse);
 			Personne personne = new Personne();
 			personne.setNom(nom);
 			personne.setPrenom(prenom);
-			//personne.set
-			
+			personne.setClasse(classe);
+			RoleBean roleBean = new RoleBean();
+			personne.setRole(roleBean.get(Roles.ELEVE.getId()));
+			personne.setHash(Password.getSaltedHash(personne.getLogin()));
 			
 			PersonneBean eleveBean = new PersonneBean();
+			eleveBean.insert(personne);
 			
-			
+			resp.sendRedirect(req.getContextPath() + "/eleves");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

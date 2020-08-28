@@ -67,8 +67,7 @@
 
 <div class="form-group">
                 <label for="naissanceEleve">Date de naissance</label>
-                <input type="date" class="form-control"
-									id="naissanceEleve">
+                <input type="date" class="form-control" id="naissanceEleve">
                 </div>
 
 <div class="form-group">
