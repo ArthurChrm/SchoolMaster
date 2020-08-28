@@ -53,22 +53,15 @@
           </div>
           <div class="modal-body">
 
-            <form>
+            <form action="classes" method="POST">
               <div class="form-group">
                 <label for="nomClasse">Nom de la classe</label>
-                <input type="text" class="form-control" id="nomClasse"
-									aria-describedby="nomClasseHelp">
+                <input type="text" class="form-control" id="nomClasse" name="nomClasse" aria-describedby="nomClasseHelp">
                 <small id="nomClasseHelp" class="form-text text-muted">Ce nom pourra être modifié plus tard</small>
               </div>
-              <!-- <button type="submit" class="btn btn-primary">Crï¿½er</button> -->
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+              <button type="submit" class="btn btn-primary">Créer</button>
             </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-primary">Crï¿½er</button>
-
           </div>
         </div>
       </div>
