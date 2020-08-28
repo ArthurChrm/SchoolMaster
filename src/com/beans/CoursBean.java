@@ -96,7 +96,7 @@ public class CoursBean implements Serializable{
 		ps.setDate(2, c.getFin());
 		ps.setInt(3, c.getClasse().getId());
 		ps.setInt(4, c.getSalle().getId());
-		ps.setInt(5, c.getIntitule());
+		ps.setString(5, c.getIntitule());
 		
 		ps.executeUpdate();
 		ps.close();
