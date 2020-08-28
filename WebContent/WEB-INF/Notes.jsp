@@ -1,4 +1,5 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <t:GenericLayout>
 	<jsp:attribute name="title">
@@ -12,45 +13,17 @@
 		<div class="row">
 			<div class="col-4">
 				<div class="list-group" id="list-tab" role="tablist">
-					<a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
-						href="#list-alexis-poupelin" role="tab" aria-controls="theo-david"><h5>Alexis Poupelin</h5><small>CM1</small></a>
-					<a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
-						href="#list-theo-david" role="tab" aria-controls="profile"><h5>Theo David</h5><small>CM2</small></a>
+					<c:forEach items="${eleves}" var="eleve" varStatus="loop">
+						<a class="list-group-item list-group-item-action ${loop.index == 0 ? 'active' : ''}" id="list-${eleve.id}-list" data-toggle="list"
+						href="#list-${eleve.id}" role="tab" aria-controls="${eleve.id}"><h5>${eleve.prenom} ${eleve.nom}</h5><small>CM1</small></a>
+					</c:forEach>
 				</div>
 			</div>
 			<div class="col-8">
 				<div class="tab-content" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="list-alexis-poupelin" role="tabpanel"
-						aria-labelledby="list-home-list">
-						<table class="table table-hover">
-							<thead class="thead-light">
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Matière</th>
-									<th scope="col">Note</th>
-								</tr>
-							</thead>
-							<tbody>
-
-								<tr>
-									<th scope="row">1</th>
-									<td>Mathématiques</td>
-									<td>17/20</td>
-								</tr>
-
-								<tr>
-									<th scope="row">2</th>
-									<td>Lecture</td>
-									<td>13/20</td>
-								</tr>
-
-							</tbody>
-						</table>
-					</div>
-
-					<div class="tab-pane fade" id="list-theo-david" role="tabpanel" aria-labelledby="list-profile-list">
-						<div class="tab-pane fade show active" id="list-alexis-poupelin" role="tabpanel"
-							aria-labelledby="list-home-list">
+					<c:forEach items="${eleves}" var="eleve" varStatus="loopEleve">
+						<div class="tab-pane fade ${loopEleve.index == 0 ? 'show active' : ''}" id="list-${eleve.id}" role="tabpanel"
+						aria-labelledby="list-${eleve.id}-list">
 							<table class="table table-hover">
 								<thead class="thead-light">
 									<tr>
@@ -59,25 +32,18 @@
 										<th scope="col">Note</th>
 									</tr>
 								</thead>
-								<tbody>
-
-									<tr>
-										<th scope="row">1</th>
-										<td>Mathématiques</td>
-										<td>15/20</td>
-									</tr>
-
-									<tr>
-										<th scope="row">2</th>
-										<td>Lecture</td>
-										<td>15/20</td>
-									</tr>
-
-								</tbody>
+								<c:forEach items="${notes[eleve.login]}" var="note" varStatus="loop">
+									<tbody>
+										<tr>
+											<th scope="row">${loop.index+1}</th>
+											<td>${note.description}</td>
+											<td>${note.valeur}/20</td>
+										</tr>
+									</tbody>
+								</c:forEach>
 							</table>
 						</div>
-					</div>
-
+					</c:forEach>
 				</div>
 			</div>
 		</div>

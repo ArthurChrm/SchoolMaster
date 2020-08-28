@@ -34,6 +34,29 @@ public class NoteBean implements Serializable{
 		return notes;
 	}
 	
+	public List<Note> getAll(Personne p) throws SQLException, ClassNotFoundException{
+		
+		List<Note> notes = new ArrayList<Note>();
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM notes WHERE id_personne = ?");
+		ps.setInt(1, p.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			Note n = new Note();
+			n.setId(rs.getInt("id_note"));
+			n.setValeur(rs.getFloat("valeur_note"));
+			n.setDescription(rs.getString("description_note"));
+			n.setPersonne(new PersonneBean().get(rs.getInt("id_personne")));
+			
+			notes.add(n);
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return notes;
+	}
+	
 	public Note get(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM notes WHERE id_note = ?");
 		ps.setInt(1, id);

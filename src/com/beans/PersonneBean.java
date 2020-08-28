@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.auth.Roles;
+
 public class PersonneBean implements Serializable{
 
 	private static final long serialVersionUID = 5731163502171657345L;
@@ -16,6 +18,29 @@ public class PersonneBean implements Serializable{
 		
 		List<Personne> personnes = new ArrayList<Personne>();
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM personnes");
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			Personne p = new Personne();
+			p.setId(rs.getInt("id_personne"));
+			p.setNom(rs.getString("nom_personne"));
+			p.setPrenom(rs.getString("prenom_personne"));
+			p.setHash(rs.getString("hash_personne"));
+			p.setRole(new RoleBean().get(rs.getInt("id_role")));
+			
+			personnes.add(p);
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return personnes;
+	}
+	
+	public List<Personne> getAll(Roles role) throws SQLException, ClassNotFoundException{
+		List<Personne> personnes = new ArrayList<Personne>();
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM personnes WHERE id_role = ?");
+		ps.setInt(1, role.getId());
 		
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
