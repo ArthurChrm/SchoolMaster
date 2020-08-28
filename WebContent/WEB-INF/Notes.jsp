@@ -15,7 +15,10 @@
 				<div class="list-group" id="list-tab" role="tablist">
 					<c:forEach items="${eleves}" var="eleve" varStatus="loop">
 						<a class="list-group-item list-group-item-action ${loop.index == 0 ? 'active' : ''}" id="list-${eleve.id}-list" data-toggle="list"
-						href="#list-${eleve.id}" role="tab" aria-controls="${eleve.id}"><h5>${eleve.prenom} ${eleve.nom}</h5><small>CM1</small></a>
+						href="#list-${eleve.id}" role="tab" aria-controls="${eleve.id}">
+							<h5>${eleve.prenom} ${eleve.nom}</h5>
+							<small>${eleve.classe.niveau != null ? eleve.classe.niveau : 'Aucune classe renseignée' }</small>
+						</a>
 					</c:forEach>
 				</div>
 			</div>
@@ -66,8 +69,9 @@
               <div class="form-group">
                 <label for="classeEleve">Elève</label>
                 <select id="classeEleve" name="classe" class="custom-select">
-                  <option value="volvo">Alexis Poupelin</option>
-                  <option value="saab">Théo David</option>
+	                <c:forEach items="${eleves}" var="eleve">
+	                	<option value="${eleve.id}">${eleve.prenom} ${eleve.nom}</option>
+	                </c:forEach>
                 </select>
                 
                 <label for="matiereNote">Matière</label>

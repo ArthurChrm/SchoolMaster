@@ -14,6 +14,19 @@ public class PersonneBean implements Serializable{
 	private static final long serialVersionUID = 5731163502171657345L;
 	
 	/* SELECT */
+	private Personne fillWith(ResultSet rs) throws SQLException, ClassNotFoundException {
+		Personne p = new Personne();
+		p.setId(rs.getInt("id_personne"));
+		p.setNom(rs.getString("nom_personne"));
+		p.setPrenom(rs.getString("prenom_personne"));
+		p.setHash(rs.getString("hash_personne"));
+		p.setRole(new RoleBean().get(rs.getInt("id_role")));
+		
+		if(rs.getInt("id_classe") != 0) p.setClasse(new ClasseBean().get(rs.getInt("id_classe")));
+		
+		return p;
+	}
+	
 	public List<Personne> getAll() throws SQLException, ClassNotFoundException{
 		
 		List<Personne> personnes = new ArrayList<Personne>();
@@ -21,14 +34,7 @@ public class PersonneBean implements Serializable{
 		
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
-			Personne p = new Personne();
-			p.setId(rs.getInt("id_personne"));
-			p.setNom(rs.getString("nom_personne"));
-			p.setPrenom(rs.getString("prenom_personne"));
-			p.setHash(rs.getString("hash_personne"));
-			p.setRole(new RoleBean().get(rs.getInt("id_role")));
-			
-			personnes.add(p);
+			personnes.add(this.fillWith(rs));
 		}
 		
 		rs.close();
@@ -44,14 +50,7 @@ public class PersonneBean implements Serializable{
 		
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
-			Personne p = new Personne();
-			p.setId(rs.getInt("id_personne"));
-			p.setNom(rs.getString("nom_personne"));
-			p.setPrenom(rs.getString("prenom_personne"));
-			p.setHash(rs.getString("hash_personne"));
-			p.setRole(new RoleBean().get(rs.getInt("id_role")));
-			
-			personnes.add(p);
+			personnes.add(this.fillWith(rs));
 		}
 		
 		rs.close();
@@ -82,11 +81,7 @@ public class PersonneBean implements Serializable{
 		ResultSet rs = ps.executeQuery();
 		Personne p = new Personne();
 		while(rs.next()) {
-			p.setId(rs.getInt("id_personne"));
-			p.setNom(rs.getString("nom_personne"));
-			p.setPrenom(rs.getString("prenom_personne"));
-			p.setHash(rs.getString("hash_personne"));
-			p.setRole(new RoleBean().get(rs.getInt("id_role")));
+			p = this.fillWith(rs);
 		}
 		
 		rs.close();
@@ -102,11 +97,7 @@ public class PersonneBean implements Serializable{
 		ResultSet rs = ps.executeQuery();
 		Personne p = new Personne();
 		while(rs.next()) {
-			p.setId(rs.getInt("id_personne"));
-			p.setNom(rs.getString("nom_personne"));
-			p.setPrenom(rs.getString("prenom_personne"));
-			p.setHash(rs.getString("hash_personne"));
-			p.setRole(new RoleBean().get(rs.getInt("id_role")));
+			p = this.fillWith(rs);
 		}
 		
 		rs.close();
