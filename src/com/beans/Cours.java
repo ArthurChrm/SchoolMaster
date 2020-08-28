@@ -8,6 +8,7 @@ public class Cours {
 	private Date fin;
 	private Classe classe;
 	private Salle salle;
+	private String intitule;
 	
 	public Cours() {
 		
@@ -20,6 +21,18 @@ public class Cours {
 		this.fin = fin;
 		this.classe = classe;
 		this.salle = salle;
+		this.intitule = "Non défini";
+	}
+	
+	
+	public Cours(int id, Date debut, Date fin, Classe classe, Salle salle, String intitule) {
+		super();
+		this.id = id;
+		this.debut = debut;
+		this.fin = fin;
+		this.classe = classe;
+		this.salle = salle;
+		this.intitule = intitule;
 	}
 
 	public int getId() {
@@ -61,6 +74,13 @@ public class Cours {
 	public void setSalle(Salle salle) {
 		this.salle = salle;
 	}
-	
+
+	public String getIntitule() {
+		return intitule;
+	}
+
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
+	}
 	
 }
