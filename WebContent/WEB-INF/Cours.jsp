@@ -1,11 +1,13 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 
 <t:GenericLayout>
-  <jsp:attribute name="title">
+	<jsp:attribute name="title">
     Cours
   </jsp:attribute>
 
-  <jsp:attribute name="body">
+	<jsp:attribute name="body">
   
   <h1 class=pb-3>Liste des cours</h1>
   
@@ -22,47 +24,31 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mathématiques</td>
-          <td>CM1</td>
-          <td>28/08/2020 14h00</td>
-          <td>28/08/2020 16h30</td>
+		<c:forEach items="${cours}" var="cour">
+		<tr>
+          <th scope="row">${ cour.id}</th>
+          <td>Inconnu</td>
+          <td>${cour.classe.niveau}</td>
+          <td>${cour.debut}</td>
+          <td>${cour.fin}</td>
           <td><button type="button" class="btn btn-info">Modifier</button></td>
           <td><button type="button" class="btn btn-danger">Supprimer</button></td>
         </tr>
-        
-        <tr>
-          <th scope="row">1</th>
-          <td>Histoire - Géographie</td>
-          <td>CM2</td>
-          <td>28/08/2020 14h00</td>
-          <td>28/08/2020 16h30</td>
-          <td><button type="button" class="btn btn-info">Modifier</button></td>
-          <td><button type="button" class="btn btn-danger">Supprimer</button></td>
-        </tr>
-        
-        <tr>
-          <th scope="row">1</th>
-          <td>Lecture</td>
-          <td>CP</td>
-          <td>28/08/2020 14h00</td>
-          <td>28/08/2020 16h30</td>
-          <td><button type="button" class="btn btn-info">Modifier</button></td>
-          <td><button type="button" class="btn btn-danger">Supprimer</button></td>
-        </tr>
+		</c:forEach>
       </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
-      id="ajouterClasse">Ajouter un cours</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal"
+			data-target="#exampleModal" id="ajouterClasse">Ajouter un cours</button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ajout d'un cours</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -76,7 +62,8 @@
                 
                 <div class="form-group">
 	                <label for="nomClasses">Classe</label>
-	                <select name="classes" id="nomClasses" class="form-control">
+	                <select name="classes" id="nomClasses"
+									class="form-control">
 					    <option value="CP">CP</option>
 					    <option value="CE1">CE1</option>
 					    <option value="CE2">CE2</option>
@@ -100,7 +87,8 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Annuler</button>
             <button type="button" class="btn btn-primary">Ajouter le cours</button>
 
           </div>
