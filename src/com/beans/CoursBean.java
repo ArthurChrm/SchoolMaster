@@ -112,9 +112,9 @@ public class CoursBean implements Serializable{
 	/* UPDATE */
 	public void update(Cours c) throws SQLException, ClassNotFoundException {
 		String query = "UPDATE cours SET "
-				+ "debut_cours = ? "
-				+ "fin_cours = ?"
-				+ "id_classe = ? "
+				+ "debut_cours = ?, "
+				+ "fin_cours = ?, "
+				+ "id_classe = ?, "
 				+ "id_salle = ? "
 				+ "WHERE id_cours = ?";
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement(query);

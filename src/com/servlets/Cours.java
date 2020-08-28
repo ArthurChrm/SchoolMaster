@@ -93,9 +93,12 @@ public class Cours extends HttpServlet {
 		case "supprimerCours":
 			SupprimerCours(req, resp);
 			break;
+		case "modifierCours":
+			ModifierCours(req, resp);
+			break;
 		}
 
-	}
+	}	
 
 	private void AjouterCours(HttpServletRequest req, HttpServletResponse resp) {
 		try {
@@ -147,5 +150,39 @@ public class Cours extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	private void ModifierCours(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			
+			int idCours = Integer.parseInt(req.getParameter("idCours_modifier"));
+			
+			String nomCours = req.getParameter("nomCours");
+			int idClasse = Integer.parseInt(req.getParameter("idClasse"));
 
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String debutCoursStr = req.getParameter("debutCours");
+			String finCoursStr = req.getParameter("finCours");
+
+			Date debutCours = null;
+			Date finCours = null;
+
+			debutCours = format.parse(debutCoursStr);
+			finCours = format.parse(finCoursStr);
+
+			ClasseBean classeBean = new ClasseBean();
+			Classe classe = null;
+			classe = classeBean.get(idClasse);
+
+			CoursBean courBean = new CoursBean();
+			com.beans.Cours cour = courBean.get(idCours);
+			cour.setClasse(classe);
+			cour.setDebut(new java.sql.Date(debutCours.getTime()));
+			cour.setFin(new java.sql.Date(finCours.getTime()));
+			courBean.update(cour);
+			
+			resp.sendRedirect(req.getContextPath() + "/cours");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
