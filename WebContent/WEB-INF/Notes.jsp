@@ -27,6 +27,10 @@
 			document.querySelector("#matiereEditNote").value = matiere;
 			document.querySelector("#noteEdit").value = note;
 		}
+		
+		function updateDeleteNoteForm(id){
+			document.querySelector("#noteIdDelete").value = id;
+		}
 	</script>
 	
   	<h1 class=pb-3>Liste des notes</h1>
@@ -76,10 +80,10 @@
 											<td>${note.description}</td>
 											<td>${note.valeur}/20</td>
 											<td>
-												<button onclick="updateEditNoteForm(${note.id},'${note.description}',${note.valeur})" type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#editModal" id="editNote">Modifier</button>
+												<button onclick="updateEditNoteForm(${note.id},'${note.description}',${note.valeur})" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal" id="editNote">Modifier</button>
 											</td>
 											<td>
-												<button type="button" class="btn btn-danger">Supprimer</button>
+												<button onclick="updateDeleteNoteForm(${note.id})" type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" id="deleteNote">Supprimer</button>
 											</td>
 										</tr>
 									</tbody>
@@ -186,6 +190,33 @@
         </div>
       </div>
     </div>
+    
+    <!-- Delete modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Suppression d'une note</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Êtes-vous sûr de vouloir supprimer cette note ?</p>
+	        
+	        <form action="notes" method="POST">
+              <input type="hidden" id="editFromType" name="postType" value="DELETE">
+              <input type="hidden" id="noteIdDelete" name="note">
+              
+              <div class="modal-footer">
+            	<button type="button" class="btn btn-secondary" data-dismiss="modal">Non annuler</button>
+            	<button type="submit" class="btn btn-danger">Supprimer cette note</button>
+          	  </div>
+            </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
     
     <c:if test="${feedback != null}">
       	<script>
