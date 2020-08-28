@@ -14,8 +14,8 @@
 	<div class="row">
 		<div class="col-4">
 			<div class="list-group" id="list-tab" role="tablist">
-				<c:forEach items="${cours}" var="cours">
-					<a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-alexis-poupelin" role="tab" aria-controls="theo-david">
+				<c:forEach items="${cours}" var="cours" varStatus="loop">
+					<a class="list-group-item list-group-item-action ${loop.index == 0 ? 'active' : ''}" id="list-${cours.id}-list" data-toggle="list" href="#list-${cours.id}" role="tab" aria-controls="${cours.id}">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1">Unknown</h5>
 							<small>Dans 14h25min</small>
@@ -30,65 +30,21 @@
 			</div>
 			<div class="col-8">
 				<div class="tab-content" id="nav-tabContent">
-					<div class="tab-pane fade show active" id="list-alexis-poupelin"
-						role="tabpanel" aria-labelledby="list-home-list">
-						
-						<form>
-						
-							  <div class="form-group form-check">
-							    <input type="checkbox" class="form-check-input"
-									id="check-alexis-poupelin">
-							    <label class="form-check-label" for="exampleCheck1">Alexis Poupelin</label>
-							  </div>
-							  
-							  <div class="form-group form-check">
-							    <input type="checkbox" class="form-check-input"
-									id="check-theo-david">
-							    <label class="form-check-label" for="exampleCheck1">Théo David</label>
-							  </div>
-							  
-							  <button type="submit" class="btn btn-primary">Confirmer les présences</button>
-						</form>
-						
-					</div>
-
-					<div class="tab-pane fade" id="list-theo-david" role="tabpanel"
-						aria-labelledby="list-profile-list">
-						<div class="tab-pane fade show active" id="list-alexis-poupelin"
-							role="tabpanel" aria-labelledby="list-home-list">
-							
-							<form>
-						
-							  <div class="form-group form-check">
-							    <input type="checkbox" class="form-check-input"
-										id="check-alexis-poupelin">
-							    <label class="form-check-label" for="exampleCheck1">Alexis Poupelin</label>
-							  </div>
-							  
-							  <div class="form-group form-check">
-							    <input type="checkbox" class="form-check-input"
-										id="check-theo-david">
-							    <label class="form-check-label" for="exampleCheck1">Théo David</label>
-							  </div>
-							  
-							  <div class="form-group form-check">
-							    <input type="checkbox" class="form-check-input"
-										id="check-antoine-corgniard">
-							    <label class="form-check-label" for="exampleCheck1">Antoine Corgniard</label>
-							  </div>
-							  
-							  <div class="form-group form-check">
-							    <input type="checkbox" class="form-check-input"
-										id="check-arthur-cheramy">
-							    <label class="form-check-label" for="exampleCheck1">Arthur Cheramy</label>
-							  </div>
-							  
-							  <button type="submit" class="btn btn-primary">Confirmer les présences</button>
-						</form>
-							
+					<c:forEach items="${cours}" var="cours" varStatus="loopCours">
+						<div class="tab-pane fade show ${loopCours.index == 0 ? 'active' : ''}" id="list-${cours.id}"
+						role="tabpanel" aria-labelledby="list-${cours.id}-list">
+							<form action="presences" method="POST">
+								<c:forEach items="${presences[cours]}" var="presence" varStatus="loop">
+									<div class="form-group form-check">
+									    <input type="checkbox" class="form-check-input"
+											id="check-${presence.personne.id}" ${presence.present ? 'checked' : ''}>
+									    <label class="form-check-label" for="exampleCheck1">${presence.personne.prenom} ${presence.personne.nom}</label>
+								  	</div>
+								</c:forEach>
+								<button type="submit" class="btn btn-primary">Confirmer les présences</button>
+							</form>
 						</div>
-					</div>
-
+					</c:forEach>
 				</div>
 			</div>
 		</div>

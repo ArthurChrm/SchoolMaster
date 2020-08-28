@@ -3,7 +3,9 @@ package com.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.auth.Roles;
 import com.beans.CoursBean;
+import com.beans.Note;
 import com.beans.Personne;
+import com.beans.Presence;
+import com.beans.PresenceBean;
 
 public class Presences extends HttpServlet {
 
@@ -30,8 +35,16 @@ public class Presences extends HttpServlet {
 		//Load
 		try {
 			List<com.beans.Cours> cours = new CoursBean().getAll();
-			System.out.print(cours);
 			req.setAttribute("cours", cours);
+			
+			Map<com.beans.Cours,List<Presence>> coursPresences = new HashMap<>();
+			for(com.beans.Cours c : cours) {
+				List<Presence> presences = new PresenceBean().getAll(c);
+				
+				coursPresences.put(c, presences);
+			}
+			req.setAttribute("presences", coursPresences);
+			
 			
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

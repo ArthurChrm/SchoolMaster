@@ -61,6 +61,4 @@ public class Cours {
 	public void setSalle(Salle salle) {
 		this.salle = salle;
 	}
-	
-	
 }
