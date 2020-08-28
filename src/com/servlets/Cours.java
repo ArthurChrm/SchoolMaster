@@ -86,54 +86,66 @@ public class Cours extends HttpServlet {
 			return;
 		}
 
-		String nomCours = req.getParameter("nomCours");
-		int idClasse = Integer.parseInt(req.getParameter("idClasse"));
+		switch (req.getParameter("action")) {
+		case "ajouterCours":
+			AjouterCours(req, resp);
+			break;
+		case "supprimerCours":
+			SupprimerCours(req, resp);
+			break;
+		}
 
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String debutCoursStr = req.getParameter("debutCours");
-		String finCoursStr = req.getParameter("finCours");
+	}
 
-		Date debutCours = null;
-		Date finCours = null;
-
+	private void AjouterCours(HttpServletRequest req, HttpServletResponse resp) {
 		try {
+			String nomCours = req.getParameter("nomCours");
+			int idClasse = Integer.parseInt(req.getParameter("idClasse"));
+
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String debutCoursStr = req.getParameter("debutCours");
+			String finCoursStr = req.getParameter("finCours");
+
+			Date debutCours = null;
+			Date finCours = null;
+
 			debutCours = format.parse(debutCoursStr);
 			finCours = format.parse(finCoursStr);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
 
-		ClasseBean classeBean = new ClasseBean();
-		Classe classe = null;
-		try {
+			ClasseBean classeBean = new ClasseBean();
+			Classe classe = null;
 			classe = classeBean.get(idClasse);
-		} catch (ClassNotFoundException | SQLException e1) {
-			e1.printStackTrace();
-		}
 
-		SalleBean salleBean = new SalleBean();
-		Salle salle = null;
-		try {
+			SalleBean salleBean = new SalleBean();
+			Salle salle = null;
 			salle = salleBean.get(1);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
 
-		com.beans.Cours cours = new com.beans.Cours();
-		cours.setDebut(new java.sql.Date(debutCours.getTime()));
-		cours.setFin(new java.sql.Date(finCours.getTime()));
-		cours.setClasse(classe);
-		cours.setSalle(salle);
-		
-		CoursBean courBean = new CoursBean();
-		try {
+			com.beans.Cours cours = new com.beans.Cours();
+			cours.setDebut(new java.sql.Date(debutCours.getTime()));
+			cours.setFin(new java.sql.Date(finCours.getTime()));
+			cours.setClasse(classe);
+			cours.setSalle(salle);
+
+			CoursBean courBean = new CoursBean();
 			courBean.insert(cours);
-		} catch (ClassNotFoundException | SQLException e) {
+
+			resp.sendRedirect(req.getContextPath() + "/cours");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
-		resp.sendRedirect(req.getContextPath() + "/cours");
+	private void SupprimerCours(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			int idCours = Integer.parseInt(req.getParameter("idCours"));
 
+			CoursBean coursBean = new CoursBean();
+			coursBean.delete(coursBean.get(idCours));
+
+			resp.sendRedirect(req.getContextPath() + "/cours");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

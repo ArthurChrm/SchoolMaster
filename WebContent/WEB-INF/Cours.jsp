@@ -32,7 +32,12 @@
           <td>${cour.debut}</td>
           <td>${cour.fin}</td>
           <td><button type="button" class="btn btn-info">Modifier</button></td>
-          <td><button type="button" class="btn btn-danger">Supprimer</button></td>
+          <td><form action="cours" method="post">
+				<input type="hidden" value="supprimerCours" name="action">			          	
+				<input type="hidden" value="${cour.id}" name="idCours">
+				<button type="submit" class="btn btn-danger">Supprimer</button>
+          </form>
+          </td>
         </tr>
 		</c:forEach>
       </tbody>
@@ -55,29 +60,37 @@
           <div class="modal-body">
 
             <form action="cours" method="POST">
+				<input type="hidden" value="ajouterCours" name="action">			          	
+
 				<div class="form-group">
 	                <label for="nomCours">Nom du cours</label>
-	                <input type="text" class="form-control" id="nomCours" name="nomCours">
+	                <input type="text" class="form-control" id="nomCours"
+									name="nomCours">
 				</div>
                 
                 <div class="form-group">
 	                	<c:forEach items="${classes}" var="classe">
-								<input type="radio" id="${classe.niveau}" name="idClasse" value="${classe.id}">
-						  		<label for="${classe.niveau}">${classe.niveau}</label><br>
+								<input type="radio" id="${classe.niveau}" name="idClasse"
+										value="${classe.id}">
+						  		<label for="${classe.niveau}">${classe.niveau}</label>
+									<br>
 						</c:forEach>
                 </div>
                 
                 <div class="form-group">
 	                <label for="debutCours">Début du cours</label>
-	                <input type="date" class="form-control" id="debutCours" name="debutCours">
+	                <input type="date" class="form-control" id="debutCours"
+									name="debutCours">
 				</div>
 				
 				<div class="form-group">
 	                <label for="finCours">Fin du cours</label>
-	                <input type="date" class="form-control" id="finCours" name="finCours">
+	                <input type="date" class="form-control" id="finCours"
+									name="finCours">
 	            </div>
 	            
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+              <button type="button" class="btn btn-outline-secondary"
+								data-dismiss="modal">Annuler</button>
             <button type="submit" class="btn btn-primary">Ajouter le cours</button>
             </form>
           </div>

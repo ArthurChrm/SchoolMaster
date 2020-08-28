@@ -31,7 +31,11 @@
 			          <td>${classe.niveau}</td>
 			          <td>Inconnu</td>
 			          <td><button type="button" class="btn btn-info">Modifier</button></td>
-			          <td><button type="button" class="btn btn-danger">Supprimer</button></td>
+			          <td><form action="classes" method="POST">
+			          	<input type="hidden" value="supprimerClasse" name="action">
+			          	<input type="hidden" value="${classe.id}" name="idClasse">			          	
+			          	<button type="submit" class="btn btn-danger">Supprimer</button>
+			          </form></td>
 				</tr>
 				</c:forEach>
       </tbody>
@@ -54,6 +58,8 @@
           <div class="modal-body">
 
             <form action="classes" method="POST">
+            	<input type="hidden" value="ajouterClasse" name="action">
+            
               <div class="form-group">
                 <label for="nomClasse">Nom de la classe</label>
                 <input type="text" class="form-control" id="nomClasse" name="nomClasse" aria-describedby="nomClasseHelp">

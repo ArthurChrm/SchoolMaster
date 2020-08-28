@@ -66,11 +66,21 @@ public class Classes extends HttpServlet {
 			resp.sendRedirect(req.getContextPath() + "/home");
 			return;
 		}
-		
+
+		switch (req.getParameter("action")) {
+		case "ajouterClasse":
+			AjoutClasse(req, resp);
+			break;
+		case "supprimerClasse":
+			SupprimerClasse(req, resp);
+			break;
+		}
+	}
+
+	private void AjoutClasse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String nomClasse = req.getParameter("nomClasse");
 		Classe classe = new Classe();
 		classe.setNiveau(nomClasse);
-		
 
 		ClasseBean cb = new ClasseBean();
 		try {
@@ -82,7 +92,20 @@ public class Classes extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+		resp.sendRedirect(req.getContextPath() + "/classes");
+	}
+
+	private void SupprimerClasse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		int idClasse = Integer.parseInt(req.getParameter("idClasse"));
+
+		ClasseBean classeBean = new ClasseBean();
+		try {
+			classeBean.delete(classeBean.get(idClasse));
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
 		resp.sendRedirect(req.getContextPath() + "/classes");
 	}
 
