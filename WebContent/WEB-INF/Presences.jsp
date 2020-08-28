@@ -22,8 +22,7 @@
 				<c:forEach items="${cours}" var="cours" varStatus="loop">
 					<a class="list-group-item list-group-item-action ${loop.index == 0 ? 'active' : ''}" id="list-${cours.id}-list" data-toggle="list" href="#list-${cours.id}" role="tab" aria-controls="${cours.id}">
 						<div class="d-flex w-100 justify-content-between">
-							<h5 class="mb-1">Unknown</h5>
-							<small>Dans 14h25min</small>
+							<h5 class="mb-1">${cours.intitule}</h5>
 						</div>
 						<p class="mb-1">
 							Du <fmt:formatDate type="both" value="${cours.debut}" pattern="dd/MM/yyyy HH:mm"/> au <fmt:formatDate type="BOTH" value="${cours.fin}" pattern="dd/MM/yyyy HH:mm"/>

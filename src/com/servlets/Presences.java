@@ -36,7 +36,14 @@ public class Presences extends HttpServlet {
 		
 		//Load
 		try {
-			List<com.beans.Cours> cours = new CoursBean().getAll();
+			List<com.beans.Cours> cours;
+			if(req.getParameter("search") != null) {
+				//Filter
+				cours = new CoursBean().getAll('%'+req.getParameter("search"));
+			}else {
+				cours = new CoursBean().getAll();
+				
+			}
 			req.setAttribute("cours", cours);
 			
 			Map<com.beans.Cours,List<Presence>> coursPresences = new HashMap<>();
