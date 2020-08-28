@@ -30,7 +30,7 @@
 			          <th scope="row">${classe.id}</th>
 			          <td>${classe.niveau}</td>
 			          <td>Inconnu</td>
-			          <td><button type="button" class="btn btn-info">Modifier</button></td>
+			          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalModifierClasse" data-whatever="${classe.id}" id="ajouterClasse">Modifier</button></td>
 			          <td><form action="classes" method="POST">
 			          	<input type="hidden" value="supprimerClasse" name="action">
 			          	<input type="hidden" value="${classe.id}" name="idClasse">			          	
@@ -41,15 +41,16 @@
       </tbody>
     </table>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#exampleModal" id="ajouterClasse">Ajouter une classe</button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+	
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAjouterClasse" id="ajouterClasse">Ajouter une classe</button>
+	
+	<!-- Modal Ajouter une classe -->
+    <div class="modal fade" id="modalAjouterClasse" tabindex="-1"
+			aria-labelledby="modalAjouterClasseLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ajout d'une classe</h5>
+            <h5 class="modal-title" id="modalAjouterClasseLabel">Ajout d'une classe</h5>
             <button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -73,9 +74,52 @@
       </div>
     </div>
     
+    <!-- Modal Modifier une classe -->
+    <div class="modal fade" id="modalModifierClasse" tabindex="-1"
+			aria-labelledby="modalModifierClasseLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalModifierClasseLabel">Modifier une classe</h5>
+            <button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form action="classes" method="POST">
+            	<input type="hidden" value="modifierClasse" name="action">
+            	<input type="hidden" value="temporaire" id="idClasse_modifier" name="idClasse_modifier">
+            
+              <div class="form-group">
+                <label for="nomClasse">Niveau de la classe</label>
+                <input type="text" class="form-control" id="nomClasse" name="nomClasse">
+              </div>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+              <button type="submit" class="btn btn-primary">Modifier</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <p class="mt-3">
 			<i>L'ajout d'un élève à une classe se fait dans la section "Elèves" de ce site web.</i>
 		</p>
+		
+
+	<script>
+		$("#modalModifierClasse").on('show.bs.modal', function(event){
+			var button = $(event.relatedTarget)
+			var recipient = button.data("whatever")
+			
+			var modal = $(this);
+			
+			console.log(recipient)
+			modal.find("#idClasse_modifier").val(recipient)
+		})
+	</script>
 
   </jsp:attribute>
 </t:GenericLayout>

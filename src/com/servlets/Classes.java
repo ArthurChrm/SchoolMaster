@@ -74,6 +74,9 @@ public class Classes extends HttpServlet {
 		case "supprimerClasse":
 			SupprimerClasse(req, resp);
 			break;
+		case "modifierClasse":
+			ModifierClasse(req, resp);
+			break;
 		}
 	}
 
@@ -97,7 +100,7 @@ public class Classes extends HttpServlet {
 	}
 
 	private void SupprimerClasse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		int idClasse = Integer.parseInt(req.getParameter("idClasse"));
+		int idClasse = Integer.parseInt(req.getParameter("idClasse_modifier"));
 
 		ClasseBean classeBean = new ClasseBean();
 		try {
@@ -107,6 +110,23 @@ public class Classes extends HttpServlet {
 		}
 
 		resp.sendRedirect(req.getContextPath() + "/classes");
+	}
+	
+	private void ModifierClasse(HttpServletRequest req, HttpServletResponse resp) {
+		try {
+			int idClasse = Integer.parseInt(req.getParameter("idClasse_modifier"));
+			String nomClasse = req.getParameter("nomClasse");
+			
+			ClasseBean classeBean = new ClasseBean();
+			Classe classe = classeBean.get(idClasse);
+			classe.setNiveau(nomClasse);
+			classeBean.update(classe);
+			
+			resp.sendRedirect(req.getContextPath() + "/classes");
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
