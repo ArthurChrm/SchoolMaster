@@ -21,6 +21,12 @@
 			document.querySelector("#eleveText").value = name;
 			document.querySelector("#eleveTextId").value = id;
 		}
+		
+		function updateEditNoteForm(id,matiere,note){
+			document.querySelector("#noteIdEdit").value = id;
+			document.querySelector("#matiereEditNote").value = matiere;
+			document.querySelector("#noteEdit").value = note;
+		}
 	</script>
 	
   	<h1 class=pb-3>Liste des notes</h1>
@@ -59,6 +65,8 @@
 										<th scope="col">#</th>
 										<th scope="col">Matière</th>
 										<th scope="col">Note</th>
+										<th scope="col">Modifier</th>
+										<th scope="col">Supprimer</th>
 									</tr>
 								</thead>
 								<c:forEach items="${notes[eleve.login]}" var="note" varStatus="loop">
@@ -67,6 +75,12 @@
 											<th scope="row">${loop.index+1}</th>
 											<td>${note.description}</td>
 											<td>${note.valeur}/20</td>
+											<td>
+												<button onclick="updateEditNoteForm(${note.id},'${note.description}',${note.valeur})" type="button" class="btn btn-info mt-3" data-toggle="modal" data-target="#editModal" id="editNote">Modifier</button>
+											</td>
+											<td>
+												<button type="button" class="btn btn-danger">Supprimer</button>
+											</td>
 										</tr>
 									</tbody>
 								</c:forEach>
@@ -80,6 +94,7 @@
 		<button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal"
       id="ajouterClasse">Ajouter une note</button>
 	
+	<!--  Create modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -106,7 +121,7 @@
         		</c:if>
                 
                 <label for="noteEleve">Note</label>
-                <input type="number" class="form-control ${feedback.note == null ? '' : 'is-invalid' }" id="noteEleve" name="note">
+                <input type="number" class="form-control ${feedback.note == null ? '' : 'is-invalid' }" id="note" name="note">
                 <c:if test="${feedback.note != null}">
         			<div class="invalid-feedback">
         				${feedback.note}
@@ -124,14 +139,59 @@
           
         </div>
       </div>
-      
-      <c:if test="${feedback != null}">
+    </div>
+    
+    <!-- Edit note modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modification d'une note</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+
+            <form action="notes" method="POST">
+              <input type="hidden" id="editFromType" name="postType" value="UPDATE">
+              <div class="form-group">
+                <input type="hidden" id="noteIdEdit" name="note">
+                
+                <label for="matiereNote">Matière</label>
+                <input type="text" class="form-control ${feedback.matiere == null ? '' : 'is-invalid' }" id="matiereEditNote" name="matiere">
+                <c:if test="${feedback.matiere != null}">
+        			<div class="invalid-feedback">
+        				${feedback.matiere}
+        			</div>
+        		</c:if>
+                
+                <label for="noteEleve">Note</label>
+                <input type="number" class="form-control ${feedback.note == null ? '' : 'is-invalid' }" id="noteEdit" name="note">
+                <c:if test="${feedback.note != null}">
+        			<div class="invalid-feedback">
+        				${feedback.note}
+        			</div>
+        		</c:if>
+
+              </div>
+              <div class="modal-footer">
+            	<button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            	<button type="submit" class="btn btn-primary">Mettre à jour</button>
+          	  </div>
+            </form>
+
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <c:if test="${feedback != null}">
       	<script>
 			$('#exampleModal').modal('show')
 		</script>
       </c:if>
-      
-    </div>
 
 	</jsp:attribute>
 </t:GenericLayout>
