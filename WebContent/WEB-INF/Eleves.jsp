@@ -36,14 +36,15 @@
     </table>
 
     <button type="button" class="btn btn-primary" data-toggle="modal"
-			data-target="#exampleModal" id="ajouterClasse">Ajouter un élève</button>
+			data-target="#modalAjouterEleve" id="ajouterClasse">Ajouter un élève</button>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1"
-			aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!-- Modal Ajouter eleve -->
+    <div class="modal fade" id="modalAjouterEleve" tabindex="-1"
+			aria-labelledby="modalAjouterEleveLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ajout d'un élève</h5>
+            <h5 class="modal-title" id="modalAjouterEleveLabel">Ajout d'un élève</h5>
             <button type="button" class="close" data-dismiss="modal"
 							aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -51,15 +52,17 @@
           </div>
           <div class="modal-body">
 
-            <form>
+            <form action="eleves" method="POST">
+			<input type="hidden" value="ajouterEleve" name="action">			          	
+            
               <div class="form-group">
                 <label for="nomEleve">Nom</label>
-                <input type="text" class="form-control" id="nomEleve">
+                <input type="text" class="form-control" id="nomEleve" name="nom">
                 </div>
 
 <div class="form-group">
                 <label for="prenomEleve">Prenom</label>
-                <input type="text" class="form-control" id="prenomEleve">
+                <input type="text" class="form-control" id="prenomEleve" name="prenom">
                 </div>
 
 <div class="form-group">
@@ -69,25 +72,15 @@
                 </div>
 
 <div class="form-group">
-                <label for="classeEleve">Classe de l'élève</label>
-                <select id="classeEleve" name="classe"
-									class="custom-select">
-                  <option value="volvo">CP</option>
-                  <option value="saab">CE1</option>
-                  <option value="fiat">CE2</option>
-                  <option value="audi">CM1</option>
-                  <option value="audi">CM2</option>
-                </select>
+                <label>Classe de l'élève</label>
+                <c:forEach items="${classes}" var="classe">
+                	<input type="radio" id="${classe.niveau}" name="idClasse" value="${classe.id}">
+					<label for="${classe.niveau}">${classe.niveau}</label>
+				</c:forEach>
                 </div>
-              <!-- <button type="submit" class="btn btn-primary">Créer</button> -->
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Ajouter</button>
             </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-primary">Ajouter</button>
-
           </div>
         </div>
       </div>
