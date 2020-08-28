@@ -89,7 +89,25 @@ public class Eleves extends HttpServlet {
 
 	private void ModifierEleve(HttpServletRequest req, HttpServletResponse resp) {
 		try {
+			PersonneBean personneBean = new PersonneBean();
 
+			int idEleve = Integer.parseInt(req.getParameter("idEleve_modifier"));
+			
+			String prenom = req.getParameter("prenom");
+			String nom = req.getParameter("nom");
+			int idClasse = Integer.parseInt(req.getParameter("idClasse"));
+			
+			ClasseBean classesBean = new ClasseBean();
+			Classe classe = classesBean.get(idClasse);
+			Personne personne = personneBean.get(idEleve);
+			personne.setNom(nom);
+			personne.setPrenom(prenom);
+			personne.setClasse(classe);
+			
+			personneBean.update(personne);
+			
+			resp.sendRedirect(req.getContextPath() + "/eleves");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -97,6 +115,12 @@ public class Eleves extends HttpServlet {
 
 	private void SupprimerEleve(HttpServletRequest req, HttpServletResponse resp) {
 		try {
+			int idEleve = Integer.parseInt(req.getParameter("idEleve"));
+			
+			PersonneBean personneBean = new PersonneBean();
+			personneBean.delete(personneBean.get(idEleve));
+			
+			resp.sendRedirect(req.getContextPath() + "/eleves");
 
 		} catch (Exception e) {
 			e.printStackTrace();

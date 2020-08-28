@@ -108,13 +108,14 @@ public class PersonneBean implements Serializable{
 	
 	/* INSERT */
 	public void insert(Personne p) throws ClassNotFoundException, SQLException {
-		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO personnes VALUES (?,?,?,?,?,?)");
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO personnes VALUES (?,?,?,?,?,?,?)");
 		ps.setInt(1, p.getId());
 		ps.setString(2, p.getNom());
 		ps.setString(3, p.getPrenom());
 		ps.setString(4, p.getLogin());
 		ps.setString(5, p.getHash());
 		ps.setInt(6, p.getRole().getId());
+		ps.setInt(7, p.getClasse().getId());
 		
 		ps.executeUpdate();
 		ps.close();
@@ -132,10 +133,10 @@ public class PersonneBean implements Serializable{
 	/* UPDATE */
 	public void update(Personne p) throws SQLException, ClassNotFoundException {
 		String query = "UPDATE personnes SET "
-				+ "nom_personne = ? "
-				+ "prenom_personne = ?"
-				+ "login_personne = ?"
-				+ "hash_personne = ?"
+				+ "nom_personne = ?, "
+				+ "prenom_personne = ?, "
+				+ "login_personne = ?, "
+				+ "hash_personne = ?, "
 				+ "id_role = ? "
 				+ "WHERE id_personne = ?";
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement(query);
