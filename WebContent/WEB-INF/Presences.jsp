@@ -13,6 +13,11 @@
   
 	<div class="row">
 		<div class="col-4">
+			<form action="presences" method="GET">
+				<div class="form-group">
+                	<input class="form-control" type="text" name="search" placeholder="Recherchez un cours">
+                </div>
+			</form>
 			<div class="list-group" id="list-tab" role="tablist">
 				<c:forEach items="${cours}" var="cours" varStatus="loop">
 					<a class="list-group-item list-group-item-action ${loop.index == 0 ? 'active' : ''}" id="list-${cours.id}-list" data-toggle="list" href="#list-${cours.id}" role="tab" aria-controls="${cours.id}">
@@ -34,10 +39,11 @@
 						<div class="tab-pane fade show ${loopCours.index == 0 ? 'active' : ''}" id="list-${cours.id}"
 						role="tabpanel" aria-labelledby="list-${cours.id}-list">
 							<form action="presences" method="POST">
+								<input type="hidden" value="${cours.id}" name="cours">
 								<c:forEach items="${presences[cours]}" var="presence" varStatus="loop">
 									<div class="form-group form-check">
 									    <input type="checkbox" class="form-check-input"
-											id="check-${presence.personne.id}" ${presence.present ? 'checked' : ''}>
+											id="check-${presence.personne.id}" ${presence.present ? 'checked' : ''} name="${presence.personne.id}">
 									    <label class="form-check-label" for="exampleCheck1">${presence.personne.prenom} ${presence.personne.nom}</label>
 								  	</div>
 								</c:forEach>

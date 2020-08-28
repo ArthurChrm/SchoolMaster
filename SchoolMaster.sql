@@ -75,11 +75,12 @@ CREATE TABLE SALLES(
 #------------------------------------------------------------
 
 CREATE TABLE COURS(
-        id_cours    Int  Auto_increment  NOT NULL ,
-        debut_cours Datetime NOT NULL ,
-        fin_cours   Datetime NOT NULL ,
-        id_salle    Int NOT NULL ,
-        id_classe   Int NOT NULL
+        id_cours       Int  Auto_increment  NOT NULL ,
+        debut_cours    Datetime NOT NULL ,
+        fin_cours      Datetime NOT NULL ,
+        intitule_cours Varchar (50) NOT NULL ,
+        id_salle       Int NOT NULL ,
+        id_classe      Int NOT NULL
 	,CONSTRAINT COURS_PK PRIMARY KEY (id_cours)
 
 	,CONSTRAINT COURS_SALLES_FK FOREIGN KEY (id_salle) REFERENCES SALLES(id_salle)
@@ -142,3 +143,4 @@ CREATE TABLE COURS_MATERIEL(
 	,CONSTRAINT COURS_MATERIEL_MATERIEL_FK FOREIGN KEY (id_materiel) REFERENCES MATERIEL(id_materiel)
 	,CONSTRAINT COURS_MATERIEL_COURS0_FK FOREIGN KEY (id_cours) REFERENCES COURS(id_cours)
 )ENGINE=InnoDB;
+
