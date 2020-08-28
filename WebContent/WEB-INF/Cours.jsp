@@ -54,43 +54,32 @@
           </div>
           <div class="modal-body">
 
-            <form>
+            <form action="cours" method="POST">
 				<div class="form-group">
 	                <label for="nomCours">Nom du cours</label>
-	                <input type="text" class="form-control" id="nomCours">
+	                <input type="text" class="form-control" id="nomCours" name="nomCours">
 				</div>
                 
                 <div class="form-group">
-	                <label for="nomClasses">Classe</label>
-	                <select name="classes" id="nomClasses"
-									class="form-control">
-					    <option value="CP">CP</option>
-					    <option value="CE1">CE1</option>
-					    <option value="CE2">CE2</option>
-					    <option value="CM1">CM1</option>
-					    <option value="CM2">CM2</option>
-					</select>
+	                	<c:forEach items="${classes}" var="classe">
+								<input type="radio" id="${classe.niveau}" name="idClasse" value="${classe.id}">
+						  		<label for="${classe.niveau}">${classe.niveau}</label><br>
+						</c:forEach>
                 </div>
                 
                 <div class="form-group">
 	                <label for="debutCours">Début du cours</label>
-	                <input type="date" class="form-control" id="debutCours">
+	                <input type="date" class="form-control" id="debutCours" name="debutCours">
 				</div>
 				
 				<div class="form-group">
 	                <label for="finCours">Fin du cours</label>
-	                <input type="date" class="form-control" id="finCours">
+	                <input type="date" class="form-control" id="finCours" name="finCours">
 	            </div>
 	            
-              <!-- <button type="submit" class="btn btn-primary">Créer</button> -->
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary">Ajouter le cours</button>
             </form>
-
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Annuler</button>
-            <button type="button" class="btn btn-primary">Ajouter le cours</button>
-
           </div>
         </div>
       </div>
