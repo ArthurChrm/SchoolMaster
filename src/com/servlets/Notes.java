@@ -21,6 +21,7 @@ import com.beans.Note;
 import com.beans.NoteBean;
 import com.beans.Personne;
 import com.beans.PersonneBean;
+import com.sun.xml.internal.bind.marshaller.NoEscapeHandler;
 
 public class Notes extends HttpServlet {
 
@@ -83,50 +84,115 @@ public class Notes extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String eleve = req.getParameter("eleve");
-		String matiere = req.getParameter("matiere");
-		String note = req.getParameter("note");
-		
-		// Validation
 		Map<String, String> feedback = new HashMap<String,String>();
 		
-		if(eleve == null || eleve.isEmpty()) {
-			feedback.put("eleve","Merci de choisir un élève");
-		}
-		
-		if(matiere == null || matiere.isEmpty()) {
-			feedback.put("matiere","Merci d'entrer une matière");
-		}
-		if(note == null || note.isEmpty()) {
-			feedback.put("note","Merci d'entrer une note");
-		}
-		
-		if(feedback.isEmpty()) {
-			//Save to database
-			try {
-				Personne p_eleve = new PersonneBean().get(Integer.parseInt(eleve));
-				Note newNote = new Note();
-				newNote.setPersonne(p_eleve);
-				newNote.setValeur(Float.parseFloat(note));
-				newNote.setDescription(matiere);
-				
-				new NoteBean().insert(newNote);
-				resp.sendRedirect(req.getContextPath()+"/notes");
-				return;
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		//Check postType
+		switch(req.getParameter("postType")) {
+		case "INSERT":
+			String eleve = req.getParameter("eleve");
+			String matiere = req.getParameter("matiere");
+			String note = req.getParameter("note");
+			
+			// Validation
+			if(eleve == null || eleve.isEmpty()) {
+				feedback.put("eleve","Merci de choisir un élève");
 			}
+			
+			if(matiere == null || matiere.isEmpty()) {
+				feedback.put("matiere","Merci d'entrer une matière");
+			}
+			if(note == null || note.isEmpty()) {
+				feedback.put("note","Merci d'entrer une note");
+			}
+			
+			if(feedback.isEmpty()) {
+				//Save to database
+				try {
+					Personne p_eleve = new PersonneBean().get(Integer.parseInt(eleve));
+					Note newNote = new Note();
+					newNote.setPersonne(p_eleve);
+					newNote.setValeur(Float.parseFloat(note));
+					newNote.setDescription(matiere);
+					
+					new NoteBean().insert(newNote);
+					resp.sendRedirect(req.getContextPath()+"/notes");
+					return;
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			if(!feedback.containsKey("eleve")) {
+				feedback.put("eleve",eleve);
+				feedback.put("modal","exampleModal");
+			}
+			
+			break;
+		case "UPDATE":
+			String noteId = req.getParameter("noteId");
+			matiere = req.getParameter("matiere");
+			note = req.getParameter("note");
+			
+			// Validation
+			feedback = new HashMap<String,String>();
+						
+			if(noteId == null || noteId.isEmpty()) {
+				feedback.put("noteId","Merci de choisir une note");
+			}	
+			if(matiere == null || matiere.isEmpty()) {
+				feedback.put("matiereUpdate","Merci d'entrer une matière");
+			}
+			if(note == null || note.isEmpty()) {
+				feedback.put("noteUpdate","Merci d'entrer une note");
+			}			
+			
+			if(feedback.isEmpty()) {
+				try {
+					Note noteBean = new NoteBean().get(Integer.parseInt(noteId));
+					noteBean.setDescription(matiere);
+					noteBean.setValeur(Float.parseFloat(note));
+					
+					new NoteBean().update(noteBean);
+					resp.sendRedirect(req.getContextPath()+"/notes");
+					return;
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			feedback.put("modal","editModal");
+			feedback.put("matiereEdit",matiere);
+			feedback.put("noteId",noteId);
+			feedback.put("note",note);
+			
+			break;
+		case "DELETE":
+			note = req.getParameter("note");
+			
+			feedback = new HashMap<String,String>();
+			
+			if(note == null || note.isEmpty()) {
+				feedback.put("note","Merci de choisir une note");
+			}
+			
+			if(feedback.isEmpty()) {
+				try {
+					Note noteBean = new NoteBean().get(Integer.parseInt(note));
+					new NoteBean().delete(noteBean);
+					resp.sendRedirect(req.getContextPath()+"/notes");
+					return;
+				} catch (NumberFormatException | ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			break;
 		}
-		
-		if(!feedback.containsKey("eleve")) feedback.put("eleve",eleve);
 		
 		req.setAttribute("feedback",feedback);
 		this.doGet(req, resp);
 	}
-	
-	
-	
-	
-
 }

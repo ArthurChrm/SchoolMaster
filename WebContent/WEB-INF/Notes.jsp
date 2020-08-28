@@ -33,7 +33,7 @@
 		}
 	</script>
 	
-  	<h1 class=pb-3>Liste des notes</h1>
+  	<h1 class=pb-3>Liste des notes ${feedback.modal}</h1>
 
 		<div class="row">
 			<div class="col-4">
@@ -111,6 +111,7 @@
           <div class="modal-body">
 
             <form action="notes" method="POST" onshow="updateEleveForm()">
+              <input type="hidden" id="editFromType" name="postType" value="INSERT">
               <div class="form-group">
                 <label for="classeEleve">Elève</label>
                 <input type="hidden" id="eleveTextId" name="eleve">
@@ -160,21 +161,21 @@
             <form action="notes" method="POST">
               <input type="hidden" id="editFromType" name="postType" value="UPDATE">
               <div class="form-group">
-                <input type="hidden" id="noteIdEdit" name="note">
+                <input type="hidden" id="noteIdEdit" name="noteId" value="${feedback.noteId != null ? feedback.noteId : ''}">
                 
                 <label for="matiereNote">Matière</label>
-                <input type="text" class="form-control ${feedback.matiere == null ? '' : 'is-invalid' }" id="matiereEditNote" name="matiere">
-                <c:if test="${feedback.matiere != null}">
+                <input type="text" value="${feedback.matiereEdit != null ? feedback.matiereEdit : ''}" class="form-control ${feedback.matiereUpdate == null ? '' : 'is-invalid' }" id="matiereEditNote" name="matiere">
+                <c:if test="${feedback.matiereUpdate != null}">
         			<div class="invalid-feedback">
-        				${feedback.matiere}
+        				${feedback.matiereUpdate}
         			</div>
         		</c:if>
                 
                 <label for="noteEleve">Note</label>
-                <input type="number" class="form-control ${feedback.note == null ? '' : 'is-invalid' }" id="noteEdit" name="note">
-                <c:if test="${feedback.note != null}">
+                <input type="number" value="${feedback.note != null ? feedback.note : ''}" class="form-control ${feedback.noteUpdate == null ? '' : 'is-invalid' }" id="noteEdit" name="note">
+                <c:if test="${feedback.noteUpdate != null}">
         			<div class="invalid-feedback">
-        				${feedback.note}
+        				${feedback.noteUpdate}
         			</div>
         		</c:if>
 
@@ -220,9 +221,10 @@
     
     <c:if test="${feedback != null}">
       	<script>
-			$('#exampleModal').modal('show')
+			$('#${feedback.modal}').modal('show')
 		</script>
       </c:if>
+      
 
 	</jsp:attribute>
 </t:GenericLayout>
