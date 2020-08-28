@@ -84,6 +84,14 @@ public class Notes extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//Redirect if not logged
+		if(req.getSession().getAttribute("user") == null) {resp.sendRedirect(req.getContextPath()+"/home"); return;}
+				
+		//Redirect if not authorized
+		Personne user = (Personne) req.getSession().getAttribute("user");
+		if(!autorized.contains(user.getRole().getEnum())) {resp.sendRedirect(req.getContextPath()+"/home"); return;}
+		
+		//Init feedback
 		Map<String, String> feedback = new HashMap<String,String>();
 		
 		//Check postType
