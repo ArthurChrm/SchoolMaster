@@ -46,7 +46,7 @@
 					<li class="nav-item"><a class="nav-link" href="/SchoolMaster/eleves">Elèves</a></li>
 					<li class="nav-item"><a class="nav-link" href="/SchoolMaster/presences">Présences</a></li>
 					<li class="nav-item"><a class="nav-link" href="/SchoolMaster/notes">Notes</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Matériel</a></li>
+					<li class="nav-item"><a class="nav-link" href="/SchoolMaster/materiel">Matériel</a></li>
 				</c:if>
 			</ul>
 			<%@ include file="../Partial_Login.jsp"%>

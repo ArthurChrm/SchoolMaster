@@ -76,4 +76,13 @@
 		<url-pattern>/cours</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>Materiel</servlet-name>
+		<servlet-class>com.servlets.Materiel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Materiel</servlet-name>
+		<url-pattern>/materiel</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
