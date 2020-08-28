@@ -42,4 +42,17 @@ jre1.8.0_261
 
 # Environnement de développement
 
-L’ensemble du groupe utilise Eclipse JEE pour développer ce projet. Nous utilisons Git pour la gestion de version. Pour la base de données, nous utilisons MySql (WAMP ou Laravel).
+L’ensemble du groupe utilise Eclipse JEE pour développer ce projet. Nous utilisons Git pour la gestion de version. Pour la base de données, nous utilisons MySql (WAMP ou Laragon).
+
+# Installation
+
+Après avoir importé le projet dans votre IDE préféré et démarré le serveur tomcat.
+Créez la structure de la la base de donnée mysql nommée "schoolmaster" avec :
+* SchoolMaster.sql (contient uniquement la structure)
+* SchoolMasterExample.sql (contient la structure et quelques données d'example) <-- recommandé !
+
+Si vous avez utilisé le second fichier, voici le compte par défaut :
+* ADMIN - login : poupelin.alexis / mdp : password
+
+
+
