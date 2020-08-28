@@ -7,6 +7,7 @@ public class Personne {
 	private Role role;
 	private String login;
 	private String hash;
+	private Classe classe;
 	
 	public Personne() {
 		
@@ -20,6 +21,13 @@ public class Personne {
 		this.role = role;
 		this.hash = hash;
 		this.login = this.getLogin();
+	}
+	
+	
+
+	public Personne(int id, String nom, String prenom, Role role, String hash, Classe classe) {
+		this(id,nom,prenom,role,hash);
+		this.classe = classe;
 	}
 
 	public int getId() {
@@ -65,6 +73,16 @@ public class Personne {
 	public String getLogin() {
 		return this.nom.toLowerCase()+"."+this.prenom.toLowerCase();
 	}
+
+	public Classe getClasse() {
+		return classe;
+	}
+
+	public void setClasse(Classe classe) {
+		this.classe = classe;
+	}
+	
+	
 	
 	
 	

@@ -34,6 +34,29 @@ public class NoteBean implements Serializable{
 		return notes;
 	}
 	
+	public List<Note> getAll(Personne p) throws SQLException, ClassNotFoundException{
+		
+		List<Note> notes = new ArrayList<Note>();
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM notes WHERE id_personne = ?");
+		ps.setInt(1, p.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		while(rs.next()) {
+			Note n = new Note();
+			n.setId(rs.getInt("id_note"));
+			n.setValeur(rs.getFloat("valeur_note"));
+			n.setDescription(rs.getString("description_note"));
+			n.setPersonne(new PersonneBean().get(rs.getInt("id_personne")));
+			
+			notes.add(n);
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return notes;
+	}
+	
 	public Note get(int id) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM notes WHERE id_note = ?");
 		ps.setInt(1, id);
@@ -55,11 +78,10 @@ public class NoteBean implements Serializable{
 	
 	/* INSERT */
 	public void insert(Note n) throws ClassNotFoundException, SQLException {
-		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO notes VALUES (?,?,?,?)");
-		ps.setInt(1, n.getId());
-		ps.setFloat(2, n.getValeur());
-		ps.setString(3, n.getDescription());
-		ps.setInt(4, n.getPersonne().getId());
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO notes(valeur_note,description_note,id_personne) VALUES (?,?,?)");
+		ps.setFloat(1, n.getValeur());
+		ps.setString(2, n.getDescription());
+		ps.setInt(3, n.getPersonne().getId());
 		
 		ps.executeUpdate();
 		ps.close();
@@ -77,15 +99,15 @@ public class NoteBean implements Serializable{
 	/* UPDATE */
 	public void update(Note n) throws SQLException, ClassNotFoundException {
 		String query = "UPDATE notes SET "
-				+ "valeur_note = ? "
-				+ "description_note = ?"
-				+ "id_personne = ?"
+				+ "valeur_note = ?,"
+				+ "description_note = ?,"
+				+ "id_personne = ? "
 				+ "WHERE id_note = ?";
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement(query);
-		ps.setInt(1, n.getId());
-		ps.setFloat(2, n.getValeur());
-		ps.setString(3, n.getDescription());
-		ps.setInt(4, n.getPersonne().getId());
+		ps.setFloat(1, n.getValeur());
+		ps.setString(2, n.getDescription());
+		ps.setInt(3, n.getPersonne().getId());
+		ps.setInt(4, n.getId());
 		
 		ps.executeUpdate();
 		ps.close();

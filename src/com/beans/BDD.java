@@ -14,7 +14,7 @@ public class BDD {
 		String url = "jdbc:mysql://localhost:3306/schoolmaster";
 		String username = "root";
 		String password = "";
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 		this.conn = DriverManager.getConnection(url,username,password);
 	}
 	

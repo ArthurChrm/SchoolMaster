@@ -35,10 +35,12 @@ CREATE TABLE PERSONNES(
         prenom_personne Varchar (50) NOT NULL ,
         login_personne  Varchar (50) NOT NULL ,
         hash_personne   Varchar (100) NOT NULL ,
-        id_role         Int NOT NULL
+        id_role         Int NOT NULL ,
+        id_classe       Int
 	,CONSTRAINT PERSONNES_PK PRIMARY KEY (id_personne)
 
 	,CONSTRAINT PERSONNES_ROLES_FK FOREIGN KEY (id_role) REFERENCES ROLES(id_role)
+	,CONSTRAINT PERSONNES_CLASSES0_FK FOREIGN KEY (id_classe) REFERENCES CLASSES(id_classe)
 )ENGINE=InnoDB;
 
 
@@ -76,12 +78,12 @@ CREATE TABLE COURS(
         id_cours    Int  Auto_increment  NOT NULL ,
         debut_cours Datetime NOT NULL ,
         fin_cours   Datetime NOT NULL ,
-        id_classe   Int NOT NULL ,
-        id_salle    Int NOT NULL
+        id_salle    Int NOT NULL ,
+        id_classe   Int NOT NULL
 	,CONSTRAINT COURS_PK PRIMARY KEY (id_cours)
 
-	,CONSTRAINT COURS_CLASSES_FK FOREIGN KEY (id_classe) REFERENCES CLASSES(id_classe)
-	,CONSTRAINT COURS_SALLES0_FK FOREIGN KEY (id_salle) REFERENCES SALLES(id_salle)
+	,CONSTRAINT COURS_SALLES_FK FOREIGN KEY (id_salle) REFERENCES SALLES(id_salle)
+	,CONSTRAINT COURS_CLASSES0_FK FOREIGN KEY (id_classe) REFERENCES CLASSES(id_classe)
 )ENGINE=InnoDB;
 
 
@@ -140,4 +142,3 @@ CREATE TABLE COURS_MATERIEL(
 	,CONSTRAINT COURS_MATERIEL_MATERIEL_FK FOREIGN KEY (id_materiel) REFERENCES MATERIEL(id_materiel)
 	,CONSTRAINT COURS_MATERIEL_COURS0_FK FOREIGN KEY (id_cours) REFERENCES COURS(id_cours)
 )ENGINE=InnoDB;
-

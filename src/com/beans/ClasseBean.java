@@ -39,7 +39,7 @@ public class ClasseBean implements Serializable{
 		ResultSet rs = ps.executeQuery();
 		Classe c = new Classe();
 		while(rs.next()) {
-			c.setId(id);
+			c.setId(rs.getInt("id_classe"));
 			c.setNiveau(rs.getString("niveau_classe"));
 		}
 		

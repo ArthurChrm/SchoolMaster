@@ -33,6 +33,24 @@ public class PresenceBean implements Serializable{
 		return presences;
 	}
 	
+	public Presence get(Cours c) throws SQLException, ClassNotFoundException {
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM cours WHERE id_cours = ?");
+		ps.setInt(1, c.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		Presence p2 = new Presence();
+		while(rs.next()) {
+			p2.setCours(new CoursBean().get(rs.getInt("id_cours")));
+			p2.setPersonne(new PersonneBean().get(rs.getInt("id_personne")));
+			p2.setPresent(rs.getBoolean("present_presence"));
+		}
+		
+		rs.close();
+		ps.close();
+		
+		return p2;
+	}
+	
 	public Presence get(Cours c,Personne p) throws SQLException, ClassNotFoundException {
 		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("SELECT * FROM cours WHERE id_cours = ? AND id_personne = ?");
 		ps.setInt(1, c.getId());
