@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,7 @@ import com.auth.Roles;
 import com.beans.Classe;
 import com.beans.ClasseBean;
 import com.beans.Personne;
+import com.beans.PersonneBean;
 
 public class Classes extends HttpServlet {
 
@@ -39,6 +42,14 @@ public class Classes extends HttpServlet {
 		List<Classe> classes = new ArrayList<Classe>();
 		try {
 			classes = cb.getAll();
+			
+			Map<Classe,Integer> calcul = new HashMap<>();
+			for(Classe c : classes) {
+				List<Personne> personnes = new PersonneBean().getAll(c.getId());
+				calcul.put(c,personnes.size());
+			}
+			
+			req.setAttribute("calcul", calcul);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -27,7 +27,7 @@
 		<c:forEach items="${cours}" var="cour">
 		<tr>
           <th scope="row">${ cour.id}</th>
-          <td>Inconnu</td>
+          <td>${cour.intitule}</td>
           <td>${cour.classe.niveau}</td>
           <td>${cour.debut}</td>
           <td>${cour.fin}</td>

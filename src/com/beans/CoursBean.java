@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,8 +116,8 @@ public class CoursBean implements Serializable{
 	}
 	
 	/* INSERT */
-	public void insert(Cours c) throws ClassNotFoundException, SQLException {
-		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO cours(debut_cours,fin_cours,id_classe,id_salle,intitule_cours) VALUES (?,?,?,?,?)");
+	public Cours insert(Cours c) throws ClassNotFoundException, SQLException {
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO cours(debut_cours,fin_cours,id_classe,id_salle,intitule_cours) VALUES (?,?,?,?,?)",Statement.RETURN_GENERATED_KEYS);
 		ps.setDate(1, c.getDebut());
 		ps.setDate(2, c.getFin());
 		ps.setInt(3, c.getClasse().getId());
@@ -124,7 +125,15 @@ public class CoursBean implements Serializable{
 		ps.setString(5, c.getIntitule());
 		
 		ps.executeUpdate();
+		
+		ResultSet generatedKeys = ps.getGeneratedKeys();
+		if (generatedKeys.next()) {
+            c.setId(generatedKeys.getInt(1));
+        }
+		
 		ps.close();
+		
+		return c;
 	}
 	
 	/* DELETE */

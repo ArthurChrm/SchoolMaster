@@ -29,7 +29,7 @@
 				<tr>
 			          <th scope="row">${classe.id}</th>
 			          <td>${classe.niveau}</td>
-			          <td>Inconnu</td>
+			          <td>${calcul[classe]}</td>
 			          <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalModifierClasse" data-whatever="${classe.id}" id="ajouterClasse">Modifier</button></td>
 			          <td><form action="classes" method="POST">
 			          	<input type="hidden" value="supprimerClasse" name="action">

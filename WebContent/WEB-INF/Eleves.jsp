@@ -26,8 +26,8 @@
       <c:forEach items="${eleves}" var="eleve">					
 				<tr>
           <th scope="row">${eleve.id}</th>
-          <td>${eleve.prenom } ${eleve.prenom }</td>
-          <td>Inconnu</td>
+          <td>${eleve.prenom } ${eleve.nom }</td>
+          <td>${eleve.classe.niveau}</td>
           <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalModifierEleve" data-whatever="${eleve.id}" id="ajouterClasse">Modifier</button></td>
           <td><form action="eleves" method="POST">
 			          	<input type="hidden" value="supprimerEleve" name="action">

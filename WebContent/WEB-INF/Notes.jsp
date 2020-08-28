@@ -40,9 +40,9 @@
 				<form action="notes" method="GET">
 					<div class="form-group">
                 	<select id=searchForm name="classe" class="custom-select" onchange="this.form.submit()">
+                		<option value="-1" ${param.classe == null || param.classe == -1 ? 'selected' : ''}>Toutes les classes</option>
+		                <option value="0" ${param.classe == 0 ? 'selected' : ''}>Aucune classe renseignée</option>
 		                <c:forEach items="${classes}" var="classe">
-		                	<option value="-1" ${param.classe == null || param.classe == -1 ? 'selected' : ''}>Toutes les classes</option>
-		                	<option value="0" ${param.classe == 0 ? 'selected' : ''}>Aucune classe renseignée</option>
 		                	<option value="${classe.id}" ${param.classe == classe.id ? 'selected' : ''}>${classe.niveau}</option>
 		                </c:forEach>
                 	</select>
@@ -78,7 +78,7 @@
 										<tr>
 											<th scope="row">${loop.index+1}</th>
 											<td>${note.description}</td>
-											<td>${note.valeur}/20</td>
+											<td>${note.valeur}</td>
 											<td>
 												<button onclick="updateEditNoteForm(${note.id},'${note.description}',${note.valeur})" type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal" id="editNote">Modifier</button>
 											</td>

@@ -19,6 +19,9 @@ import com.beans.Classe;
 import com.beans.ClasseBean;
 import com.beans.CoursBean;
 import com.beans.Personne;
+import com.beans.PersonneBean;
+import com.beans.Presence;
+import com.beans.PresenceBean;
 import com.beans.Salle;
 import com.beans.SalleBean;
 
@@ -128,9 +131,20 @@ public class Cours extends HttpServlet {
 			cours.setFin(new java.sql.Date(finCours.getTime()));
 			cours.setClasse(classe);
 			cours.setSalle(salle);
-
+			cours.setIntitule(nomCours);
+			
 			CoursBean courBean = new CoursBean();
-			courBean.insert(cours);
+			cours = courBean.insert(cours);
+			
+			List<Personne> personnes = new PersonneBean().getAll(idClasse);
+			for(Personne p : personnes) {
+				Presence pre = new Presence();
+				pre.setCours(cours);
+				pre.setPersonne(p);
+				pre.setPresent(false);
+				
+				new PresenceBean().insert(pre);
+			}
 
 			resp.sendRedirect(req.getContextPath() + "/cours");
 		} catch (Exception e) {
@@ -142,9 +156,15 @@ public class Cours extends HttpServlet {
 		try {
 			int idCours = Integer.parseInt(req.getParameter("idCours"));
 
+			com.beans.Cours c = new CoursBean().get(idCours);
+			List<Presence> presences = new PresenceBean().getAll(c);
+			for(Presence p : presences) {
+				new PresenceBean().delete(p);
+			}
+			
 			CoursBean coursBean = new CoursBean();
-			coursBean.delete(coursBean.get(idCours));
-
+			coursBean.delete(c);
+			
 			resp.sendRedirect(req.getContextPath() + "/cours");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -178,6 +198,7 @@ public class Cours extends HttpServlet {
 			cour.setClasse(classe);
 			cour.setDebut(new java.sql.Date(debutCours.getTime()));
 			cour.setFin(new java.sql.Date(finCours.getTime()));
+			cour.setIntitule(nomCours);
 			courBean.update(cour);
 			
 			resp.sendRedirect(req.getContextPath() + "/cours");
