@@ -78,11 +78,10 @@ public class NoteBean implements Serializable{
 	
 	/* INSERT */
 	public void insert(Note n) throws ClassNotFoundException, SQLException {
-		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO notes VALUES (?,?,?,?)");
-		ps.setInt(1, n.getId());
-		ps.setFloat(2, n.getValeur());
-		ps.setString(3, n.getDescription());
-		ps.setInt(4, n.getPersonne().getId());
+		PreparedStatement ps = BDD.getInstance().getConn().prepareStatement("INSERT INTO notes(valeur_note,description_note,id_personne) VALUES (?,?,?)");
+		ps.setFloat(1, n.getValeur());
+		ps.setString(2, n.getDescription());
+		ps.setInt(3, n.getPersonne().getId());
 		
 		ps.executeUpdate();
 		ps.close();

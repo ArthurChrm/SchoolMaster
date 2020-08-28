@@ -2,6 +2,7 @@ package com.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -82,9 +83,49 @@ public class Notes extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		String eleve = req.getParameter("eleve");
+		String matiere = req.getParameter("matiere");
+		String note = req.getParameter("note");
+		
+		// Validation
+		Map<String, String> feedback = new HashMap<String,String>();
+		
+		if(eleve == null || eleve.isEmpty()) {
+			feedback.put("eleve","Merci de choisir un élève");
+		}
+		
+		if(matiere == null || matiere.isEmpty()) {
+			feedback.put("matiere","Merci d'entrer une matière");
+		}
+		if(note == null || note.isEmpty()) {
+			feedback.put("note","Merci d'entrer une note");
+		}
+		
+		if(feedback.isEmpty()) {
+			//Save to database
+			try {
+				Personne p_eleve = new PersonneBean().get(Integer.parseInt(eleve));
+				Note newNote = new Note();
+				newNote.setPersonne(p_eleve);
+				newNote.setValeur(Float.parseFloat(note));
+				newNote.setDescription(matiere);
+				
+				new NoteBean().insert(newNote);
+				resp.sendRedirect(req.getContextPath()+"/notes");
+				return;
+			} catch (ClassNotFoundException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		if(!feedback.containsKey("eleve")) feedback.put("eleve",eleve);
+		
+		req.setAttribute("feedback",feedback);
+		this.doGet(req, resp);
 	}
+	
+	
 	
 	
 

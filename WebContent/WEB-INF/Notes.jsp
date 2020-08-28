@@ -7,8 +7,23 @@
 	</jsp:attribute>
 
 	<jsp:attribute name="body">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			updateEleveForm();
+			$('#exampleModal').on('show.bs.modal', function (e) {
+				updateEleveForm();
+			})
+		});
 	
-  <h1 class=pb-3>Liste des notes</h1>
+		function updateEleveForm(){
+			let id = document.querySelector("#list-tab .active").getAttribute('aria-controls');
+			let name = document.querySelector("#list-tab .active h5").innerHTML;
+			document.querySelector("#eleveText").value = name;
+			document.querySelector("#eleveTextId").value = id;
+		}
+	</script>
+	
+  	<h1 class=pb-3>Liste des notes</h1>
 
 		<div class="row">
 			<div class="col-4">
@@ -25,7 +40,7 @@
 				</form>
 				<div class="list-group" id="list-tab" role="tablist">
 					<c:forEach items="${eleves}" var="eleve" varStatus="loop">
-						<a class="list-group-item list-group-item-action ${loop.index == 0 ? 'active' : ''}" id="list-${eleve.id}-list" data-toggle="list"
+						<a class="list-group-item list-group-item-action ${(feedback.eleve != null && feedback.eleve == eleve.id) || (feedback.eleve == null && loop.index == 0) ? 'active' : ''}" id="list-${eleve.id}-list" data-toggle="list"
 						href="#list-${eleve.id}" role="tab" aria-controls="${eleve.id}">
 							<h5>${eleve.prenom} ${eleve.nom}</h5>
 							<small>${eleve.classe.niveau != null ? eleve.classe.niveau : 'Aucune classe renseignée' }</small>
@@ -64,7 +79,7 @@
 		
 		<button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#exampleModal"
       id="ajouterClasse">Ajouter une note</button>
-
+	
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -76,20 +91,27 @@
           </div>
           <div class="modal-body">
 
-            <form action="notes" method="GET">
+            <form action="notes" method="POST" onshow="updateEleveForm()">
               <div class="form-group">
                 <label for="classeEleve">Elève</label>
-                <select id="classeEleve" name="eleve" class="custom-select">
-	                <c:forEach items="${eleves}" var="eleve">
-	                	<option value="${eleve.id}">${eleve.prenom} ${eleve.nom}</option>
-	                </c:forEach>
-                </select>
+                <input type="hidden" id="eleveTextId" name="eleve">
+                <input type="text" class="form-control" id="eleveText" name="eleveName" disabled>
                 
                 <label for="matiereNote">Matière</label>
-                <input type="text" class="form-control" id="matiereNote" name="matiere">
+                <input type="text" class="form-control ${feedback.matiere == null ? '' : 'is-invalid' }" id="matiereNote" name="matiere">
+                <c:if test="${feedback.matiere != null}">
+        			<div class="invalid-feedback">
+        				${feedback.matiere}
+        			</div>
+        		</c:if>
                 
                 <label for="noteEleve">Note</label>
-                <input type="number" class="form-control" id="noteEleve" name="note">
+                <input type="number" class="form-control ${feedback.note == null ? '' : 'is-invalid' }" id="noteEleve" name="note">
+                <c:if test="${feedback.note != null}">
+        			<div class="invalid-feedback">
+        				${feedback.note}
+        			</div>
+        		</c:if>
 
               </div>
               <div class="modal-footer">
@@ -102,6 +124,13 @@
           
         </div>
       </div>
+      
+      <c:if test="${feedback != null}">
+      	<script>
+			$('#exampleModal').modal('show')
+		</script>
+      </c:if>
+      
     </div>
 
 	</jsp:attribute>
